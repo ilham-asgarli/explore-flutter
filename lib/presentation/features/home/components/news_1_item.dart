@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:explore/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../utils/logic/constants/enums/app_enum.dart';
-import '../../../../utils/logic/constants/router/main_router_constants.dart';
-import '../../../../utils/logic/core/router/main_router_service.dart';
-import '../../../components/news_statistic.dart';
+import '../../../utils/config/router/core/main_router_service.dart';
+import '../../../utils/constants/enums/app_enum.dart';
+import '../../../utils/constants/router/main_router_constants.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../widgets/news_statistic.dart';
 
 class News1Item extends StatelessWidget {
   final double? width;
@@ -15,12 +15,12 @@ class News1Item extends StatelessWidget {
   final bool newsSourceClickable;
 
   const News1Item({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     this.fontSize,
     this.newsSourceClickable = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

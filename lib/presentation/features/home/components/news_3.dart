@@ -1,8 +1,7 @@
-import 'package:explore/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../utils/extensions/context_extension.dart';
 import 'news_1_item.dart';
 
 class News3 extends StatefulWidget {
@@ -57,9 +56,9 @@ class _News3State extends State<News3> {
             child: AnimatedSmoothIndicator(
               activeIndex: activeIndex < count ? activeIndex : count - 1,
               count: count,
-              effect: JumpingDotEffect(
+              effect: const JumpingDotEffect(
                 activeDotColor: Colors.white,
-                dotColor: HexColor("#707070"),
+                dotColor: Color(0xFF707070),
                 dotHeight: 5,
                 dotWidth: 20,
               ),

@@ -1,18 +1,18 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/extensions/context_extension.dart';
-import '../../../../../../core/extensions/widget_extension.dart';
-import '../../../../../../utils/logic/constants/enums/app_enum.dart';
-import '../../../../../../utils/logic/constants/locale/locale_keys.g.dart';
-import '../../../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
-import '../../../../../components/my_sliver_app_bar.dart';
-import '../features/my-comment-likes/views/my_comments_likes_view.dart';
-import '../features/my-content-likes/views/my_content_likes_view.dart';
+import '../../../../../../utils/di/injectable.dart';
+import '../../../../../components/appbar/my_sliver_app_bar.dart';
+import '../../../../../utils/constants/enums/app_enum.dart';
+import '../../../../../utils/extensions/context_extension.dart';
+import '../../../../../utils/extensions/num_extension.dart';
+import '../../../../../utils/extensions/theme_extension.dart';
+import '../../../../../utils/extensions/widget_extension.dart';
+import '../../../../../utils/l10n/gen/app_localizations.dart';
+import '../features/my-comment-likes/my_comments_likes_view.dart';
+import '../features/my-content-likes/my_content_likes_view.dart';
 
 class MyLikesView extends StatefulWidget {
-  const MyLikesView({Key? key}) : super(key: key);
+  const MyLikesView({super.key});
 
   @override
   State<MyLikesView> createState() => _MyLikesViewState();
@@ -21,14 +21,14 @@ class MyLikesView extends StatefulWidget {
 class _MyLikesViewState extends State<MyLikesView>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-
-  final _tabItems = <String, Widget>{
-    LocaleKeys.myLikesTab.tr(gender: "news"): const MyContentLikesView(),
-    LocaleKeys.myLikesTab.tr(gender: "comment"): const MyCommentsLikesView(),
-  };
+  late final Map<String, Widget> _tabItems;
 
   @override
   void initState() {
+    _tabItems = {
+      getIt<AppLocalizations>().myLikesTabNews: const MyContentLikesView(),
+      getIt<AppLocalizations>().myLikesTabComment: const MyCommentsLikesView(),
+    };
     _tabController = TabController(length: _tabItems.length, vsync: this);
     super.initState();
   }
@@ -80,7 +80,7 @@ class _MyLikesViewState extends State<MyLikesView>
     return widgets.expand(
       (element) {
         if (widgets.toList().indexOf(element) < _tabItems.length - 1) {
-          return [element, context.widget.horizontalSpace(10)];
+          return [element, 10.horizontalSpace];
         }
         return [element];
       },
@@ -97,7 +97,7 @@ class _MyLikesViewState extends State<MyLikesView>
         child: Ink(
           height: 50,
           decoration: BoxDecoration(
-            color: context.watch<ThemeBloc>().state.appColors.fourth,
+            color: context.theme.customColors.fourth,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(

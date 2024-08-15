@@ -1,26 +1,24 @@
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/core/extensions/string_extension.dart';
-import 'package:explore/core/extensions/widget_extension.dart';
-import 'package:explore/presentation/components/my_profile_picture_image.dart';
-import 'package:explore/presentation/components/news_statistic.dart';
-import 'package:explore/utils/logic/constants/enums/app_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 
-import '../../../../utils/logic/constants/app/app_constants.dart';
-import '../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
-import '../../../components/my_popup_menu_button_item.dart';
+import '../../../../utils/gen/assets.gen.dart';
+import '../../../utils/constants/app/app_constants.dart';
+import '../../../utils/constants/enums/app_enum.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/num_extension.dart';
+import '../../../utils/extensions/theme_extension.dart';
+import '../../../widgets/my_popup_menu_button_item.dart';
+import '../../../widgets/my_profile_picture_image.dart';
+import '../../../widgets/news_statistic.dart';
 
 class Comment extends StatelessWidget {
-  const Comment({Key? key}) : super(key: key);
+  const Comment({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: context.paddingNormal,
       decoration: BoxDecoration(
-        color: context.watch<ThemeBloc>().state.appColors.fourth,
+        color: context.theme.customColors.fourth,
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -52,17 +50,17 @@ class Comment extends StatelessWidget {
                         "10:00",
                         style: TextStyle(
                           fontSize: 10,
-                          color: HexColor("#858997"),
+                          color: Color(0xFF858997),
                         ),
                       ),
                     ],
                   ),
-                  context.widget.verticalSpace(3),
+                  3.verticalSpace,
                   Text(
                     "YorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorum",
                     style: TextStyle(
                       fontSize: 14,
-                      color: HexColor("#858997"),
+                      color: Color(0xFF858997),
                     ),
                   ),
                 ],
@@ -76,14 +74,14 @@ class Comment extends StatelessWidget {
                   onComplain(details.globalPosition, context);
                 },
                 child: ImageIcon(
-                  AssetImage("ic_more_horizontal".toPNG),
-                  color: HexColor("#707070"),
+                  AssetImage(Assets.image.icMoreHorizontal.path),
+                  color: const Color(0xFF707070),
                 ),
               ),
               NewsStatistic(
                 statistic: Statistic.like,
                 iconSize: 40,
-                color: HexColor("#707070"),
+                color: const Color(0xFF707070),
                 count: 4,
                 fontWeight: FontWeight.bold,
                 axis: Axis.vertical,
@@ -104,7 +102,7 @@ class Comment extends StatelessWidget {
 
     String? selected = await showMenu<String>(
       context: context,
-      color: HexColor("#262222"),
+      color: const Color(0xFF262222),
       position: RelativeRect.fromLTRB(
         context.width - (context.width - dx) * 2,
         dy,

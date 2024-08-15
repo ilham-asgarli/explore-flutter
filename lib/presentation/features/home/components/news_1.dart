@@ -1,7 +1,7 @@
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/core/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/num_extension.dart';
 import 'news_1_item.dart';
 
 class News1 extends StatelessWidget {
@@ -48,8 +48,8 @@ class News1 extends StatelessWidget {
         },
         separatorBuilder: (context, index) {
           return scrollDirection == Axis.horizontal
-              ? context.widget.horizontalSpace(20)
-              : context.widget.verticalSpace(20);
+              ? 20.horizontalSpace
+              : 20.verticalSpace;
         },
       ),
     );

@@ -1,42 +1,42 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:explore/core/router/core/router_service.dart';
-import 'package:explore/utils/logic/constants/router/router_constants.dart';
-import 'package:explore/utils/logic/state/bloc/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../utils/logic/constants/enums/app_enum.dart';
-import '../../../../utils/logic/constants/locale/locale_keys.g.dart';
+import '../../../../utils/di/injectable.dart';
+import '../../../utils/config/router/core/router_service.dart';
+import '../../../utils/constants/enums/app_enum.dart';
+import '../../../utils/constants/router/router_constants.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/theme_extension.dart';
+import '../../../utils/l10n/gen/app_localizations.dart';
 
 class SignFooter extends StatelessWidget {
   final Sign sign;
 
-  SignFooter({Key? key, required this.sign}) : super(key: key) {
+  SignFooter({super.key, required this.sign}) {
     switch (sign) {
       case Sign.signUp:
         path1 = RouterConstants.signIn;
         path2 = RouterConstants.signIn;
-        text1 = LocaleKeys.haveAccount.tr();
-        text2 = LocaleKeys.signIn.tr();
+        text1 = getIt<AppLocalizations>().haveAccount;
+        text2 = getIt<AppLocalizations>().signIn;
         break;
       case Sign.signIn:
         path1 = RouterConstants.signUp;
         path2 = RouterConstants.signUp;
-        text1 = LocaleKeys.haveNoAccount.tr();
-        text2 = LocaleKeys.signUp.tr();
+        text1 = getIt<AppLocalizations>().haveNoAccount;
+        text2 = getIt<AppLocalizations>().signUp;
         break;
       case Sign.forgotPassword:
         path1 = RouterConstants.signIn;
         path2 = RouterConstants.signUp;
-        text1 = LocaleKeys.signIn.tr();
-        text2 = LocaleKeys.signUp.tr();
+        text1 = getIt<AppLocalizations>().signIn;
+        text2 = getIt<AppLocalizations>().signUp;
         break;
       case Sign.resetPassword:
         path1 = RouterConstants.resetPassword;
         path2 = RouterConstants.signIn;
-        text1 = LocaleKeys.sendCodeAgain.tr();
-        text2 = LocaleKeys.signIn.tr();
+        text1 = getIt<AppLocalizations>().sendCodeAgain;
+        text2 = getIt<AppLocalizations>().signIn;
         break;
     }
   }
@@ -70,7 +70,7 @@ class SignFooter extends StatelessWidget {
             ),
           ),
           Divider(
-            color: context.watch<ThemeBloc>().state.appColors.third,
+            color: context.theme.customColors.third,
             thickness: 0.1,
             height: 20,
           ),

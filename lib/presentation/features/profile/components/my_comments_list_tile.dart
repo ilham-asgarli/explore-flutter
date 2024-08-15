@@ -1,28 +1,26 @@
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/core/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 
-import '../../../../utils/logic/constants/enums/app_enum.dart';
-import '../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
+import '../../../../utils/gen/assets.gen.dart';
+import '../../../utils/constants/enums/app_enum.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/theme_extension.dart';
 
 class MyCommentsListTile extends StatelessWidget {
   final Comments comments;
   final void Function()? onTap;
 
   const MyCommentsListTile({
-    Key? key,
+    super.key,
     required this.comments,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Ink(
       decoration: BoxDecoration(
-        color: context.watch<ThemeBloc>().state.appColors.fourth,
+        color: context.theme.customColors.fourth,
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
@@ -34,10 +32,10 @@ class MyCommentsListTile extends StatelessWidget {
             ImageIcon(
               AssetImage(
                 comments == Comments.liked
-                    ? "ic_heart_search".toPNG
-                    : "ic_message_search".toPNG,
+                    ? Assets.image.icHeartSearch.path
+                    : Assets.image.icMessageSearch.path,
               ),
-              color: context.watch<ThemeBloc>().state.appColors.third,
+              color: context.theme.customColors.third,
             ),
           ],
         ),
@@ -55,7 +53,7 @@ class MyCommentsListTile extends StatelessWidget {
             Padding(
               padding: context.paddingLow,
               child: Image.asset(
-                "ic_ellipse".toPNG,
+                Assets.image.icEllipse.path,
                 width: 5,
                 height: 5,
               ),
@@ -63,8 +61,8 @@ class MyCommentsListTile extends StatelessWidget {
             Text(
               "14d önce",
               style: GoogleFonts.roboto(
-                textStyle: TextStyle(
-                  color: HexColor("#787C81"),
+                textStyle: const TextStyle(
+                  color: Color(0xFF787C81),
                   fontSize: 13,
                 ),
               ),
@@ -85,8 +83,8 @@ class MyCommentsListTile extends StatelessWidget {
           icon: ImageIcon(
             AssetImage(
               comments == Comments.liked
-                  ? "ic_heart".toPNG
-                  : "ic_close_circle".toPNG,
+                  ? Assets.image.icHeart.path
+                  : Assets.image.icCloseCircle.path,
             ),
             size: comments == Comments.liked ? 35 : 20,
             color: Colors.red,

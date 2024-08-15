@@ -1,22 +1,21 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:explore/core/extensions/string_extension.dart';
-import 'package:explore/core/extensions/widget_extension.dart';
-import 'package:explore/core/router/core/router_service.dart';
-import 'package:explore/presentation/features/choose-country/components/country.dart';
-import 'package:explore/utils/logic/constants/router/router_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/cache/shared_preferences_manager.dart';
-import '../../../../domain/models/other/country_model.dart';
-import '../../../../utils/logic/constants/cache/shared_preferences_constants.dart';
-import '../../../../utils/logic/constants/locale/locale_keys.g.dart';
-import '../../../components/gradient_elevated_button.dart';
+import '../../../../data/models/lang/lang.model.dart';
+import '../../../../utils/di/injectable.dart';
+import '../../../../utils/gen/assets.gen.dart';
+import '../../../components/button/gradient_elevated_button.dart';
+import '../../../utils/config/router/core/router_service.dart';
+import '../../../utils/constants/cache/shared_preferences_constants.dart';
+import '../../../utils/constants/router/router_constants.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/num_extension.dart';
+import 'country.dart';
 
 class ChooseCountryDialog extends StatelessWidget {
-  final CountryModel countryModel;
+  final LangModel countryModel;
 
-  const ChooseCountryDialog({Key? key, required this.countryModel})
-      : super(key: key);
+  const ChooseCountryDialog({super.key, required this.countryModel});
 
   @override
   Widget build(BuildContext context) {
@@ -28,30 +27,26 @@ class ChooseCountryDialog extends StatelessWidget {
         children: [
           Country(
             countryModel: countryModel,
-            light: true,
+            isDialog: true,
           ),
-          context.widget.verticalSpace(30),
+          30.verticalSpace,
           GradientElevatedButton(
             onTap: () async {
-              int? id = countryModel.id;
+              int id = countryModel.id;
 
-              if (id == null) {
-                return;
-              }
-
-              await SharedPreferencesManager.instance.preferences
-                  ?.setInt(SharedPreferencesConstants.chosenCountryId, id);
+              await getIt<SharedPreferences>()
+                  .setInt(SharedPreferencesConstants.chosenCountryId, id);
               RouterService.instance.pushNamed(path: RouterConstants.signUp);
             },
-            text: LocaleKeys.continue_.tr(),
+            text: context.l10n.continue_,
           ),
-          context.widget.verticalSpace(30),
+          30.verticalSpace,
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
             child: ImageIcon(
-              AssetImage("ic_back".toPNG),
+              AssetImage(Assets.image.icBack.path),
               size: 40,
               color: Colors.white,
             ),

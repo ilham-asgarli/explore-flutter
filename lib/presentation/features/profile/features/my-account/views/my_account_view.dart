@@ -1,23 +1,20 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/core/extensions/string_extension.dart';
-import 'package:explore/core/extensions/widget_extension.dart';
-import 'package:explore/presentation/components/my_dropdown_button_field.dart';
-import 'package:explore/presentation/components/my_text_field.dart';
-import 'package:explore/presentation/features/profile/features/my-account/view-models/my_account_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../utils/logic/constants/enums/app_enum.dart';
-import '../../../../../../utils/logic/constants/locale/locale_keys.g.dart';
-import '../../../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
-import '../../../../../components/gradient_elevated_button.dart';
-import '../../../../../components/my_sliver_app_bar.dart';
+import '../../../../../../utils/gen/assets.gen.dart';
+import '../../../../../components/appbar/my_sliver_app_bar.dart';
+import '../../../../../components/button/gradient_elevated_button.dart';
+import '../../../../../components/textfield/my_text_field.dart';
+import '../../../../../utils/constants/enums/app_enum.dart';
+import '../../../../../utils/extensions/context_extension.dart';
+import '../../../../../utils/extensions/num_extension.dart';
+import '../../../../../utils/extensions/theme_extension.dart';
+import '../../../../../widgets/my_dropdown_button_field.dart';
 import '../components/country_dropdown_item.dart';
+import '../view-models/my_account_view_model.dart';
 
 class MyAccountView extends StatelessWidget {
-  MyAccountView({Key? key}) : super(key: key);
+  MyAccountView({super.key});
 
   final MyAccountViewModel _viewModel = MyAccountViewModel();
 
@@ -44,19 +41,19 @@ class MyAccountView extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            context.widget.verticalSpace(40),
+                            40.verticalSpace,
                             buildForm(context),
-                            context.widget.verticalSpace(40),
+                            40.verticalSpace,
                             GradientElevatedButton(
-                              text: LocaleKeys.save.tr(),
+                              text: context.l10n.save,
                               onTap: () {
                                 FocusManager.instance.primaryFocus?.unfocus();
                               },
                             ),
-                            context.widget.verticalSpace(40),
+                            40.verticalSpace,
                           ],
                         ),
-                        buildDeleteAccount(),
+                        buildDeleteAccount(context),
                       ],
                     ),
                   ),
@@ -73,11 +70,11 @@ class MyAccountView extends StatelessWidget {
     return Container(
       padding: context.paddingNormal,
       decoration: BoxDecoration(
-        color: context.watch<ThemeBloc>().state.appColors.fourth,
+        color: context.theme.customColors.fourth,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Text(
-        LocaleKeys.myAccountSettings.tr(),
+        context.l10n.myAccountSettings,
         style: GoogleFonts.poppins(
           textStyle: const TextStyle(fontSize: 15),
         ),
@@ -85,7 +82,7 @@ class MyAccountView extends StatelessWidget {
     );
   }
 
-  Widget buildDeleteAccount() {
+  Widget buildDeleteAccount(BuildContext context) {
     return TextButton(
       style: const ButtonStyle(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -96,7 +93,7 @@ class MyAccountView extends StatelessWidget {
       ),
       onPressed: () {},
       child: Text(
-        LocaleKeys.deleteAccount.tr(),
+        context.l10n.deleteAccount,
         style: GoogleFonts.jost(
           textStyle: const TextStyle(fontSize: 16),
         ),
@@ -109,42 +106,42 @@ class MyAccountView extends StatelessWidget {
       child: Column(
         children: [
           MyTextField(
-            hintText: LocaleKeys.username.tr(),
-            prefixIcon: "ic_person",
+            hintText: context.l10n.username,
+            prefixIcon: Assets.image.icPerson.path,
             textInputAction: TextInputAction.next,
-            iconColor: context.watch<ThemeBloc>().state.appColors.third,
+            iconColor: context.theme.customColors.third,
           ),
-          context.widget.verticalSpace(10),
+          10.verticalSpace,
           MyTextField(
-            hintText: LocaleKeys.phone.tr(),
-            prefixIcon: "ic_phone",
+            hintText: context.l10n.phone,
+            prefixIcon: Assets.image.icPhone.path,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.phone,
-            iconColor: context.watch<ThemeBloc>().state.appColors.third,
+            iconColor: context.theme.customColors.third,
           ),
-          context.widget.verticalSpace(10),
+          10.verticalSpace,
           MyTextField(
-            hintText: LocaleKeys.email.tr(),
-            prefixIcon: "ic_envelope",
+            hintText: context.l10n.email,
+            prefixIcon: Assets.image.icEnvelope.path,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
-            iconColor: context.watch<ThemeBloc>().state.appColors.third,
+            iconColor: context.theme.customColors.third,
           ),
-          context.widget.verticalSpace(10),
+          10.verticalSpace,
           MyTextField(
-            hintText: LocaleKeys.password.tr(),
-            prefixIcon: "ic_password",
+            hintText: context.l10n.password,
+            prefixIcon: Assets.image.icPassword.path,
             keyboardType: TextInputType.visiblePassword,
             obscureText: true,
-            iconColor: context.watch<ThemeBloc>().state.appColors.third,
+            iconColor: context.theme.customColors.third,
           ),
-          context.widget.verticalSpace(10),
+          10.verticalSpace,
           MyDropdownButtonFormField<int>(
             menuMaxHeight: context.dynamicHeight(0.3),
-            hintText: LocaleKeys.changeCountry.tr(),
-            prefixIcon: AssetImage("ic_pennant".toPNG),
-            iconColor: context.watch<ThemeBloc>().state.appColors.third,
-            value: _viewModel.countryModels[0].id ?? 0,
+            hintText: context.l10n.changeCountry,
+            prefixIcon: AssetImage(Assets.image.icPennant.path),
+            iconColor: context.theme.customColors.third,
+            value: _viewModel.countryModels[0].id,
             items: _viewModel.countryModels
                 .map((e) => MyDropdownButtonFormFieldModel<int>(
                       value: e.id ?? 0,

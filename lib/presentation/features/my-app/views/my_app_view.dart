@@ -1,106 +1,76 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-import '../../../../core/base/views/base_app_lifecycle_view.dart';
-import '../../../../core/constants/app/global_key_constants.dart';
-import '../../../../utils/logic/config/router/config_router.dart';
-import '../../../../utils/logic/constants/locale/locale_keys.g.dart';
-import '../../../../utils/logic/helpers/theme/theme_helper.dart';
-import '../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
-import '../../../../utils/logic/state/cubit/network/network_cubit.dart';
-import '../../../../utils/ui/config/theme/common/common_theme.dart';
-import '../../../widgets/have_no.dart';
+import '../../../../utils/di/injectable.dart';
+import '../../../utils/config/router/config_router.dart';
+import '../../../utils/constants/app/app_constants.dart';
+import '../../../utils/constants/enums/app_theme_enum.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/l10n/gen/app_localizations.dart';
+import '../../main/state/main-tab/main_tab_cubit.dart';
+import '../state/bloc/network/network_bloc.dart';
+import '../state/cubit/theme/theme_cubit.dart';
 import '../view-models/my_app_view_model.dart';
 
-class MyAppView extends StatefulWidget {
-  const MyAppView({Key? key}) : super(key: key);
+class MyAppView extends StatelessWidget {
+  final MyAppViewModel viewModel;
 
-  @override
-  State<MyAppView> createState() => _MyAppViewState();
-}
-
-class _MyAppViewState extends State<MyAppView> {
-  final MyAppViewModel _myAppViewModel = MyAppViewModel();
+  const MyAppView({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder: (context, orientation, deviceType) => buildThemeBloc(),
-    );
-  }
-
-  Widget buildThemeBloc() {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (BuildContext context, ThemeState state) {
-        ThemeHelper.instance
-            .setSystemUIOverlayStyleWithAppTheme(state.appTheme);
-
-        return buildApp(state);
-      },
-    );
-  }
-
-  Widget buildApp(ThemeState themeState) {
-    return BaseAppLifeCycleView(
-      child: MaterialApp(
-        scrollBehavior: const ScrollBehavior().copyWith(overscroll: false),
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        themeMode: themeState.themeMode,
-        theme: CommonTheme.instance.getTheme(
-          context: context,
-          appTheme: themeState.appTheme,
-          themeMode: ThemeMode.light,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeCubit>(
+          create: (_) => getIt(),
         ),
-        darkTheme: CommonTheme.instance.getTheme(
-          context: context,
-          appTheme: themeState.appTheme,
-          themeMode: ThemeMode.dark,
+        BlocProvider<NetworkBloc>(
+          lazy: false,
+          create: (_) => getIt(),
         ),
-        scaffoldMessengerKey: GlobalKeyConstants.scaffoldMessengerKey,
-        navigatorKey: GlobalKeyConstants.navigatorKey,
-        onGenerateRoute: ConfigRouter.instance.generateRoute,
-        initialRoute: _myAppViewModel.getInitialRoute(),
-        builder: (context, Widget? child) {
-          return buildNetworkCubit(child);
-        },
-      ),
-    );
-  }
-
-  Widget buildNetworkCubit(Widget? child) {
-    return BlocBuilder<NetworkCubit, NetworkState>(
-      builder: (context, NetworkState state) {
-        if (child == null) {
-          return const SizedBox();
-        }
-
-        if (state is! NetworkInitial) {
-          _myAppViewModel.removeSplashScreen();
-        }
-
-        if (state is ConnectionSuccess) {
-          return child;
-        }
-
-        if (state is ConnectionFailure) {
-          return buildNoInternetWidget();
-        }
-
-        return const SizedBox();
-      },
-    );
-  }
-
-  Widget buildNoInternetWidget() {
-    return Scaffold(
-      body: HaveNo(
-        description: LocaleKeys.noInternet.tr(),
-        iconData: Icons.wifi_off_rounded,
+        BlocProvider(
+          create: (_) => MainTabCubit(),
+        ),
+      ],
+      child: DevicePreview(
+        enabled: false, //kDebugMode
+        builder: (context) => KeyboardVisibilityProvider(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: ConfigRouter.instance.generateRoute,
+            initialRoute: viewModel.getInitialRoute(),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: kDebugMode ? const Locale("tr", "TR") : null,
+            theme: viewModel.themeHelper
+                .getCustomTheme(AppTheme.main)
+                .getTheme(ThemeMode.light),
+            darkTheme: viewModel.themeHelper
+                .getCustomTheme(AppTheme.example)
+                .getTheme(ThemeMode.dark),
+            themeMode: context.watch<ThemeCubit>().state.themeMode,
+            scaffoldMessengerKey: AppConstants.scaffoldMessengerKey,
+            builder: (context, child) {
+              try {
+                getIt.registerLazySingleton(() => context);
+              } catch (e) {}
+              return MediaQuery(
+                data: context.mediaQuery.copyWith(
+                  textScaler: TextScaler.linear(
+                    context.textScaleFactor(baseWidth: 414),
+                  ),
+                ),
+                child: child!,
+              );
+            },
+          ),
+        ),
       ),
     );
   }

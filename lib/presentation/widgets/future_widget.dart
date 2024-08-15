@@ -8,13 +8,13 @@ class FutureWidget<T> extends StatelessWidget {
   final Widget? nullWidget;
 
   const FutureWidget({
-    Key? key,
+    super.key,
     required this.snapshot,
     required this.successWidget,
     this.waitingWidget,
     this.errorWidget,
     this.nullWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

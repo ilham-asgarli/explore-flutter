@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../core/extensions/context_extension.dart';
-import '../../../../core/extensions/widget_extension.dart';
+import '../utils/extensions/context_extension.dart';
 
 class HaveNo extends StatelessWidget {
   final IconData iconData;
@@ -11,8 +10,8 @@ class HaveNo extends StatelessWidget {
   const HaveNo({
     required this.description,
     required this.iconData,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +22,13 @@ class HaveNo extends StatelessWidget {
           FaIcon(
             iconData,
             size: 100,
-            color: context.colorScheme.background,
+            color: context.colorScheme.secondary,
           ),
-          context.widget.dynamicVerticalSpace(context, 0.05),
+          context.dynamicVerticalSpace(0.05),
           Text(
             description,
             style: TextStyle(
-              color: context.colorScheme.background,
+              color: context.colorScheme.secondary,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

@@ -1,11 +1,11 @@
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/utils/logic/constants/router/categories_router_constants.dart';
-import 'package:explore/utils/logic/core/router/categories_router_service.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
+import '../../../utils/config/router/core/categories_router_service.dart';
+import '../../../utils/constants/router/categories_router_constants.dart';
+import '../../../utils/extensions/context_extension.dart';
 
 class CategoriesItem extends StatelessWidget {
-  const CategoriesItem({Key? key}) : super(key: key);
+  const CategoriesItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CategoriesItem extends StatelessWidget {
       child: Ink(
         padding: context.paddingNormal,
         decoration: BoxDecoration(
-          color: HexColor("#ff0000"),
+          color: const Color(0xFFff0000),
           borderRadius: BorderRadius.circular(5),
         ),
         child: Column(

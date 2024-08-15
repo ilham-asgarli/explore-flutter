@@ -1,12 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/core/extensions/string_extension.dart';
-import 'package:explore/utils/logic/constants/locale/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
-import '../../../components/my_profile_picture_image.dart';
+import '../../../../utils/gen/assets.gen.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/theme_extension.dart';
+import '../../../widgets/my_profile_picture_image.dart';
 
 class WriteComment extends StatelessWidget {
   const WriteComment({Key? key}) : super(key: key);
@@ -16,7 +14,7 @@ class WriteComment extends StatelessWidget {
     return Container(
       padding: context.paddingNormal,
       decoration: BoxDecoration(
-        color: context.watch<ThemeBloc>().state.appColors.fourth,
+        color: context.theme.customColors.fourth,
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -48,7 +46,7 @@ class WriteComment extends StatelessWidget {
                       isDense: true,
                       contentPadding: EdgeInsets.zero,
                       border: InputBorder.none,
-                      hintText: LocaleKeys.yourComment.tr(),
+                      hintText: context.l10n.yourComment,
                     ),
                   ),
                 ],
@@ -59,7 +57,7 @@ class WriteComment extends StatelessWidget {
             child: GestureDetector(
               onTap: () {},
               child: Image.asset(
-                "ic_send_square".toPNG,
+                Assets.image.icSendSquare.path,
                 width: 35,
               ),
             ),

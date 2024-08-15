@@ -1,20 +1,20 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/utils/logic/constants/app/app_constants.dart';
-import 'package:explore/utils/logic/constants/locale/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
-import '../../../../../utils/logic/constants/router/profile_router_constants.dart';
-import '../../../../../utils/logic/core/router/profile_router_service.dart';
-import '../../../../components/my_popup_menu_button_item.dart';
+import '../../../../../utils/di/injectable.dart';
+import '../../../../../utils/gen/assets.gen.dart';
+import '../../../../utils/config/router/core/profile_router_service.dart';
+import '../../../../utils/constants/app/app_constants.dart';
+import '../../../../utils/constants/router/profile_router_constants.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/l10n/gen/app_localizations.dart';
+import '../../../../widgets/my_popup_menu_button_item.dart';
 import '../profile_item.dart';
 
 class Likes extends ProfileItem {
   Likes({super.key})
       : super(
-          title: LocaleKeys.likes.tr(),
-          icon: "ic_profile_heart",
+          title: getIt<AppLocalizations>().likes,
+          icon: Assets.image.icProfileHeart.path,
           onTap: (BuildContext context, Offset? offset) async {
             ProfileRouterService.instance.pushNamed(
               path: ProfileRouterConstants.myLikes,
@@ -33,7 +33,7 @@ class Likes extends ProfileItem {
 
     String? selected = await showMenu<String>(
       context: context,
-      color: HexColor("#262222"),
+      color: const Color(0xFF262222),
       position: RelativeRect.fromLTRB(
         context.width - (context.width - dx) * 2,
         dy,

@@ -1,20 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:explore/core/extensions/widget_extension.dart';
-import 'package:explore/domain/models/other/country_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
+import '../../../../data/models/lang/lang.model.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/num_extension.dart';
+import '../../../utils/extensions/theme_extension.dart';
 
 class Country extends StatelessWidget {
-  final CountryModel countryModel;
-  final bool light;
+  final LangModel countryModel;
+  final bool isDialog;
 
   const Country({
-    Key? key,
+    super.key,
     required this.countryModel,
-    this.light = false,
-  }) : super(key: key);
+    this.isDialog = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +23,17 @@ class Country extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 25,
-          backgroundColor: context.watch<ThemeBloc>().state.appColors.second,
+          backgroundColor: context.theme.customColors.second,
           foregroundImage: CachedNetworkImageProvider(countryModel.flag ?? ""),
         ),
-        context.widget.verticalSpace(5),
+        5.verticalSpace,
         FittedBox(
           child: Text(
             countryModel.name ?? "",
             style: TextStyle(
-              fontSize: light ? 19 : 12,
+              fontSize: isDialog ? 19 : 12,
               fontWeight: FontWeight.bold,
-              color: light
-                  ? Colors.white
-                  : context.watch<ThemeBloc>().state.appColors.third,
+              color: isDialog ? Colors.white : context.theme.customColors.third,
             ),
           ),
         ),

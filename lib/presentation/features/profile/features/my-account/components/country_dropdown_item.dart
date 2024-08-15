@@ -1,15 +1,16 @@
-import 'package:explore/domain/models/other/country_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../data/models/lang/lang.model.dart';
+
 class CountryDropdownItem extends StatelessWidget {
-  final CountryModel countryModel;
+  final LangModel countryModel;
   final TextStyle? style;
 
   const CountryDropdownItem({
-    Key? key,
+    super.key,
     required this.countryModel,
     this.style,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

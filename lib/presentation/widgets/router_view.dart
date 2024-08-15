@@ -7,12 +7,12 @@ class RouterView extends StatelessWidget {
   final Future<bool> Function()? onWillPop;
 
   const RouterView({
-    Key? key,
+    super.key,
     required this.navigatorKey,
     this.initialRoute,
     this.onGenerateRoute,
     this.onWillPop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:explore/core/extensions/context_extension.dart';
-import 'package:explore/core/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../utils/logic/constants/enums/app_enum.dart';
-import '../../../../utils/logic/constants/router/main_router_constants.dart';
-import '../../../../utils/logic/core/router/main_router_service.dart';
-import '../../../../utils/logic/state/bloc/theme/theme_bloc.dart';
-import '../../../components/news_statistic.dart';
+import '../../../utils/config/router/core/main_router_service.dart';
+import '../../../utils/constants/enums/app_enum.dart';
+import '../../../utils/constants/router/main_router_constants.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/num_extension.dart';
+import '../../../utils/extensions/theme_extension.dart';
+import '../../../widgets/news_statistic.dart';
 
 class News extends StatelessWidget {
   final bool newsSourceClickable;
@@ -24,7 +23,7 @@ class News extends StatelessWidget {
     return Container(
       height: context.dynamicWidth(0.3),
       decoration: BoxDecoration(
-        color: context.watch<ThemeBloc>().state.appColors.fourth,
+        color: context.theme.customColors.fourth,
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -108,7 +107,7 @@ class News extends StatelessWidget {
           count: 87,
           clickable: false,
         ),
-        context.widget.horizontalSpace(10),
+        10.horizontalSpace,
         NewsStatistic(
           statistic: Statistic.like,
           count: 874,
