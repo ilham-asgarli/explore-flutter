@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/num_extension.dart';
 import 'news_1_item.dart';
@@ -11,16 +12,18 @@ class News1 extends StatelessWidget {
   final bool shrinkWrap;
   final Axis scrollDirection;
   final EdgeInsetsGeometry? padding;
+  final List<NewsModel> news;
 
   const News1({
-    Key? key,
+    super.key,
     this.height,
     this.width,
     required this.scrollDirection,
     this.shrinkWrap = false,
     this.newsSourceClickable = true,
     this.padding,
-  }) : super(key: key);
+    this.news = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class News1 extends StatelessWidget {
             ? const NeverScrollableScrollPhysics()
             : null,
         shrinkWrap: shrinkWrap,
-        itemCount: 10,
+        itemCount: news.length,
         itemBuilder: (context, index) {
           return News1Item(
             width: width ??
@@ -44,6 +47,7 @@ class News1 extends StatelessWidget {
                     ? double.infinity
                     : context.width - context.normalValue * 2),
             height: height,
+            news: news[index],
           );
         },
         separatorBuilder: (context, index) {

@@ -14,7 +14,7 @@ class _UserRemoteDataSource implements UserRemoteDataSource {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://example.com/';
+    baseUrl ??= 'https://app.exploreday.org/api/';
   }
 
   final Dio _dio;

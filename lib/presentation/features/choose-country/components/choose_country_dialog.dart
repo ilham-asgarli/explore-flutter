@@ -36,7 +36,9 @@ class ChooseCountryDialog extends StatelessWidget {
 
               await getIt<SharedPreferences>()
                   .setInt(SharedPreferencesConstants.chosenCountryId, id);
-              RouterService.instance.pushNamed(path: RouterConstants.signUp);
+              RouterService.instance.pushNamedAndRemoveUntil(
+                path: RouterConstants.main,
+              );
             },
             text: context.l10n.continue_,
           ),

@@ -15,7 +15,5 @@ abstract class AuthRemoteDataSource {
   factory AuthRemoteDataSource(Dio dio) = _AuthRemoteDataSource;
 
   @POST(ApiUrlConstants.refreshToken)
-  Future<BaseModel<TokenModel>> refreshToken(
-    @Body() String refreshToken,
-  );
+  Future<BaseModel<TokenModel>> refreshToken();
 }

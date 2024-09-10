@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'state/main-tab/main_tab_cubit.dart';
+import '../../viewmodels/ephemeral/main-tab/main_tab_cubit.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});

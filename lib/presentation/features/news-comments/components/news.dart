@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../utils/config/router/core/main_router_service.dart';
 import '../../../utils/constants/enums/app_enum.dart';
 import '../../../utils/constants/router/main_router_constants.dart';
@@ -12,11 +13,13 @@ import '../../../widgets/news_statistic.dart';
 
 class News extends StatelessWidget {
   final bool newsSourceClickable;
+  final NewsModel news;
 
   const News({
-    Key? key,
+    super.key,
     this.newsSourceClickable = true,
-  }) : super(key: key);
+    required this.news,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +60,12 @@ class News extends StatelessWidget {
     return Container(
       width: context.dynamicWidth(0.3),
       height: context.dynamicWidth(0.3),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.horizontal(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.horizontal(
           right: Radius.circular(10),
         ),
         image: DecorationImage(
-          image: CachedNetworkImageProvider(
-            "https://images.thestar.com/tG277CA8Gf6_5BSfqkD85pQcUGE=/1086x724/smart/filters:cb(1666021613961):format(webp)/https://www.thestar.com/content/dam/thestar/politics/political-opinion/2022/10/16/the-real-reason-donald-trump-ran-for-president/donald_trump.jpg",
-          ),
+          image: CachedNetworkImageProvider(news.thumbnail),
           fit: BoxFit.cover,
         ),
       ),
@@ -73,7 +74,7 @@ class News extends StatelessWidget {
 
   Widget buildNewsDescription(BuildContext context) {
     return Text(
-      "Başakşehir'e gitmesi beklenen Seferovic'ten büyük sürpriz! Yeni adresi herkesi ters köşe yapacak",
+      news.title,
       style: const TextStyle(
         fontFamily: 'Matter',
         fontSize: 16,
@@ -93,7 +94,7 @@ class News extends StatelessWidget {
         }
       },
       child: Text(
-        "Sabah",
+        news.channel.name,
         style: GoogleFonts.poppins(),
       ),
     );
@@ -104,13 +105,15 @@ class News extends StatelessWidget {
       children: [
         NewsStatistic(
           statistic: Statistic.comment,
-          count: 87,
+          count: news.comment,
           clickable: false,
+          news: news,
         ),
         10.horizontalSpace,
         NewsStatistic(
           statistic: Statistic.like,
-          count: 874,
+          count: news.like,
+          news: news,
         ),
       ],
     );

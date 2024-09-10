@@ -22,7 +22,7 @@ class MainTheme extends ThemeInterface {
       textTheme: const TextTheme(
         bodyMedium: AppTypography.bodyMedium,
       ),
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: const Color(0xFFF6F6F6),
       extensions: const [
         CustomColorExtension(
           primary: Color(0xFF1C2029),

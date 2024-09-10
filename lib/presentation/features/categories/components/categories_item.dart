@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../data/models/category/category.model.dart';
+import '../../../../domain/usecases/feed/get_feeds.usecase.dart';
+import '../../../../utils/di/injectable.dart';
 import '../../../utils/config/router/core/categories_router_service.dart';
+import '../../../utils/constants/cache/shared_preferences_constants.dart';
 import '../../../utils/constants/router/categories_router_constants.dart';
 import '../../../utils/extensions/context_extension.dart';
+import '../../../viewmodels/app/feeds/feeds_bloc.dart';
 
 class CategoriesItem extends StatelessWidget {
-  const CategoriesItem({super.key});
+  final CategoryModel categoryModel;
+
+  const CategoriesItem({
+    super.key,
+    required this.categoryModel,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        int? countryId = getIt<SharedPreferences>()
+            .getInt(SharedPreferencesConstants.chosenCountryId);
+
+        getIt<FeedsBloc>().add(GetFeeds(
+          params: GetFeedsUseCaseParams(
+            countryId: countryId!,
+            categoryId: categoryModel.id,
+          ),
+        ));
         CategoriesRouterService.instance.pushNamed(
           path: CategoriesRouterConstants.categoryNews,
         );
@@ -28,13 +48,13 @@ class CategoriesItem extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Image.network(
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Football_%28soccer_ball%29.svg/512px-Football_%28soccer_ball%29.svg.png",
+                categoryModel.icon,
                 width: 50,
                 height: 50,
               ),
             ),
             Text(
-              "Kategori",
+              categoryModel.name.tr,
               style: TextStyle(
                 fontFamily: "Matter",
                 fontWeight: FontWeight.bold,

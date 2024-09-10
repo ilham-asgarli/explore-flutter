@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../utils/config/router/core/main_router_service.dart';
 import '../../../utils/constants/enums/app_enum.dart';
 import '../../../utils/constants/router/main_router_constants.dart';
@@ -12,10 +13,12 @@ import '../../../widgets/news_statistic.dart';
 
 class News2Item extends StatelessWidget {
   final bool newsSourceClickable;
+  final NewsModel news;
 
   const News2Item({
     super.key,
     this.newsSourceClickable = true,
+    required this.news,
   });
 
   @override
@@ -27,6 +30,7 @@ class News2Item extends StatelessWidget {
       onTap: () {
         MainRouterService.instance.pushNamed(
           path: MainRouterConstants.news,
+          data: news,
         );
       },
       child: Container(
@@ -70,7 +74,7 @@ class News2Item extends StatelessWidget {
         }
       },
       child: Text(
-        "Haber",
+        news.channel.name,
         style: GoogleFonts.poppins(
           textStyle: const TextStyle(
             fontSize: 12,
@@ -86,13 +90,13 @@ class News2Item extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: context.dynamicWidth(0.3),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(10),
         ),
         image: DecorationImage(
           image: CachedNetworkImageProvider(
-            "https://media.worldnomads.com/Explore/middle-east/hagia-sophia-church-istanbul-turkey-gettyimages-skaman306.jpg",
+            news.thumbnail,
           ),
           fit: BoxFit.cover,
         ),
@@ -101,9 +105,9 @@ class News2Item extends StatelessWidget {
   }
 
   Widget buildNewsDescription() {
-    return const Text(
-      "Başakşehir'e gitmesi beklenen Seferovic'ten büyük sürpriz! Yeni adresi herkesi ters köşe yapacak",
-      style: TextStyle(
+    return Text(
+      news.title,
+      style: const TextStyle(
         fontFamily: 'Matter',
         fontWeight: FontWeight.w600,
         fontSize: 17,
@@ -119,12 +123,14 @@ class News2Item extends StatelessWidget {
       children: [
         NewsStatistic(
           statistic: Statistic.comment,
-          count: 87,
+          count: news.comment,
+          news: news,
         ),
         10.horizontalSpace,
         NewsStatistic(
           statistic: Statistic.like,
-          count: 874,
+          count: news.like,
+          news: news,
         ),
       ],
     );

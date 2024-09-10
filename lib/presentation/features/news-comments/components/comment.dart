@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../../utils/gen/assets.gen.dart';
 import '../../../utils/constants/app/app_constants.dart';
 import '../../../utils/constants/enums/app_enum.dart';
@@ -11,7 +12,12 @@ import '../../../widgets/my_profile_picture_image.dart';
 import '../../../widgets/news_statistic.dart';
 
 class Comment extends StatelessWidget {
-  const Comment({super.key});
+  final NewsModel news;
+
+  const Comment({
+    super.key,
+    required this.news,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +91,7 @@ class Comment extends StatelessWidget {
                 count: 4,
                 fontWeight: FontWeight.bold,
                 axis: Axis.vertical,
+                news: news,
               ),
             ],
           ),

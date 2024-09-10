@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/appbar/my_sliver_app_bar.dart';
 import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/theme_extension.dart';
 import '../../widgets/my_profile_picture_image.dart';
-import '../my-app/state/cubit/theme/theme_cubit.dart';
 import 'profile_view_model.dart';
 
 class ProfileView extends StatelessWidget {
@@ -27,20 +25,19 @@ class ProfileView extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildMainDetailsArea(context),
+                  //buildMainDetailsArea(context),
                   buildProfileGrid(context),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        context.l10n.help,
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            fontSize: 16,
-                          ),
+                  const Spacer(),
+                  /*Center(
+                    child: Text(
+                      context.l10n.help,
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 16,
                         ),
                       ),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),

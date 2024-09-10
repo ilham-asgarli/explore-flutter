@@ -11,13 +11,16 @@ import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/num_extension.dart';
 import '../../utils/extensions/theme_extension.dart';
 import '../../utils/extensions/widget_extension.dart';
+import '../../viewmodels/ephemeral/news/news_view_model.dart';
 import '../../widgets/news_statistic.dart';
-import 'news_view_model.dart';
 
 class NewsView extends StatelessWidget {
-  NewsView({super.key});
+  final NewsViewModel viewModel;
 
-  final NewsViewModel newsViewModel = NewsViewModel();
+  const NewsView({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class NewsView extends StatelessWidget {
           buildHeader(context).toSliver,
           SliverFillRemaining(
             child: WebViewWidget(
-              controller: newsViewModel.controller,
+              controller: viewModel.controller,
               gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}
                 ..add(
                   Factory<OneSequenceGestureRecognizer>(
@@ -57,7 +60,7 @@ class NewsView extends StatelessWidget {
 
   Widget buildSource(BuildContext context) {
     return Text(
-      "Haberler.com",
+      viewModel.news.channel.name,
       style: GoogleFonts.poppins(
         textStyle: TextStyle(
           color: context.theme.customColors.fourth,
@@ -75,15 +78,19 @@ class NewsView extends StatelessWidget {
           onPressed: () {},
           icon: Image.asset(
             Assets.image.icLinkCircle.path,
-            width: 20,
-            height: 20,
+            width: 25,
+            height: 25,
           ),
         ),
         IconButton(
           onPressed: () {
             MainRouterService.instance.pop();
           },
-          icon: Image.asset(Assets.image.icBackRoundedRectangle.path),
+          icon: Image.asset(
+            Assets.image.icBackRoundedRectangle.path,
+            width: 25,
+            height: 25,
+          ),
         ),
       ],
     );
@@ -95,16 +102,18 @@ class NewsView extends StatelessWidget {
       children: [
         NewsStatistic(
           statistic: Statistic.comment,
-          count: 87,
+          count: viewModel.news.comment,
           color: Colors.white,
           iconSize: 35,
+          news: viewModel.news,
         ),
         10.horizontalSpace,
         NewsStatistic(
           statistic: Statistic.like,
-          count: 874,
+          count: viewModel.news.like,
           color: Colors.white,
           iconSize: 35,
+          news: viewModel.news,
         ),
       ],
     );

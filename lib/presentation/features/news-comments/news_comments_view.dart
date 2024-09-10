@@ -5,12 +5,18 @@ import '../../utils/constants/enums/app_enum.dart';
 import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/num_extension.dart';
 import '../../utils/extensions/widget_extension.dart';
+import '../../viewmodels/ephemeral/news-comments/news_comments_view_model.dart';
 import 'components/comment.dart';
 import 'components/news.dart';
 import 'components/write_comment.dart';
 
 class NewsCommentsView extends StatelessWidget {
-  const NewsCommentsView({super.key});
+  final NewsCommentsViewModel viewModel;
+
+  const NewsCommentsView({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class NewsCommentsView extends StatelessWidget {
             padding: context.paddingNormal,
             child: Column(
               children: [
-                const News(),
+                News(news: viewModel.news),
                 25.verticalSpace,
                 const WriteComment(),
                 10.verticalSpace,
@@ -44,7 +50,9 @@ class NewsCommentsView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 5,
       itemBuilder: (context, index) {
-        return const Comment();
+        return Comment(
+          news: viewModel.news,
+        );
       },
       separatorBuilder: (context, index) {
         return 10.verticalSpace;

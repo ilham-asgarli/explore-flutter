@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../presentation/features/not-found-navigation/views/not_found_navigation_view.dart';
+import '../../../../utils/di/injectable.dart';
 import '../../../features/choose-country/choose_country_view.dart';
 import '../../../features/main/main_router_view.dart';
 import '../../../features/profile/profile_router_view.dart';
@@ -27,7 +28,9 @@ class ConfigRouter extends RouterInterface {
         );
       case RouterConstants.chooseCountry:
         return normalNavigate(
-          ChooseCountryView(),
+          ChooseCountryView(
+            chooseCountryViewModel: getIt(),
+          ),
           RouterConstants.chooseCountry,
         );
       case RouterConstants.signUp:

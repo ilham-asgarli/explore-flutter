@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/lang/lang.model.dart';
-import '../../widgets/future_widget.dart';
-import 'choose_country_view_model.dart';
+import '../../utils/constants/enums/app_enum.dart';
+import '../../viewmodels/app/langs/langs_bloc.dart';
+import '../../viewmodels/ephemeral/choose-country/choose_country_view_model.dart';
 import 'components/country.dart';
 
 class ChooseCountryView extends StatelessWidget {
-  ChooseCountryView({super.key});
+  final ChooseCountryViewModel chooseCountryViewModel;
 
-  final ChooseCountryViewModel _chooseCountryViewModel =
-      ChooseCountryViewModel();
+  const ChooseCountryView({
+    super.key,
+    required this.chooseCountryViewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<LangModel>>(
-        future: _chooseCountryViewModel.future,
-        builder: (context, snapshot) {
-          return FutureWidget<List<LangModel>>(
-            snapshot: snapshot,
-            successWidget: buildCountries,
-          );
+      body: BlocBuilder<LangsBloc, LangsState>(
+        builder: (context, state) {
+          if (state.state == BlocState.success) {
+            return buildCountries(state.data);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         },
       ),
     );
@@ -37,7 +43,7 @@ class ChooseCountryView extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            _chooseCountryViewModel.onChooseCountry(
+            chooseCountryViewModel.onChooseCountry(
               context,
               countryModel,
             );

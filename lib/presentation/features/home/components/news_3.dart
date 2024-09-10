@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../utils/extensions/context_extension.dart';
 import 'news_1_item.dart';
 
 class News3 extends StatefulWidget {
   final double? height, width;
   final Axis scrollDirection;
+  final List<NewsModel> news;
 
   const News3({
-    Key? key,
+    super.key,
     this.height,
     this.width,
     this.scrollDirection = Axis.horizontal,
-  }) : super(key: key);
+    required this.news,
+  });
 
   @override
   State<News3> createState() => _News3State();
@@ -34,7 +37,7 @@ class _News3State extends State<News3> {
         children: [
           PageView.builder(
             controller: pageController,
-            itemCount: 10,
+            itemCount: widget.news.length,
             itemBuilder: (context, index) {
               return FractionallySizedBox(
                 widthFactor: 1 / pageController.viewportFraction,
@@ -42,6 +45,7 @@ class _News3State extends State<News3> {
                   height: widget.height,
                   width: null,
                   fontSize: 16,
+                  news: widget.news[index],
                 ),
               );
             },

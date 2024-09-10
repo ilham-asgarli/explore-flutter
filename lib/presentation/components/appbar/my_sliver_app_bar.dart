@@ -44,7 +44,7 @@ class MySliverAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         backgroundColor: context.theme.brightness == Brightness.dark
             ? context.theme.customColors.primary
-            : Colors.white,
+            : const Color(0xFFF6F6F6),
         elevation: 0,
         leading: IconButton(
           onPressed: onTapLeading ??

@@ -40,7 +40,11 @@ Future<void> init() async {
       : getIt(instanceName: PathProviderConstants.applicationDocuments);
   HydratedBloc.storage = await HydratedStorage.build(storageDirectory: storage);
   Bloc.observer = AllBlocObserver();
-  getIt<Dio>()
-      .interceptors
-      .insert(0, AuthInterceptor(authRemoteDataSource: getIt()));
+  getIt<Dio>().interceptors.insert(
+      0,
+      AuthInterceptor(
+        dio: getIt(),
+        secureStorage: getIt(),
+        authRemoteDataSource: getIt(),
+      ));
 }

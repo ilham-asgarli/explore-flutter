@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../../presentation/features/not-found-navigation/views/not_found_navigation_view.dart';
 import '../../../features/add-source/add_source_view.dart';
 import '../../../features/add-source/features/show-all/show_all_view.dart';
@@ -7,6 +8,8 @@ import '../../../features/main/main_view.dart';
 import '../../../features/news-comments/news_comments_view.dart';
 import '../../../features/news-source/news_source_view.dart';
 import '../../../features/news/news_view.dart';
+import '../../../viewmodels/ephemeral/news-comments/news_comments_view_model.dart';
+import '../../../viewmodels/ephemeral/news/news_view_model.dart';
 import '../../constants/router/main_router_constants.dart';
 import '../../constants/router/router_constants.dart';
 import 'interfaces/router_interface.dart';
@@ -41,12 +44,17 @@ class MainRouter extends RouterInterface {
         );
       case MainRouterConstants.news:
         return normalNavigate(
-          NewsView(),
+          NewsView(
+            viewModel: NewsViewModel(news: settings.arguments as NewsModel),
+          ),
           MainRouterConstants.news,
         );
       case MainRouterConstants.newsComments:
         return normalNavigate(
-          const NewsCommentsView(),
+          NewsCommentsView(
+            viewModel:
+                NewsCommentsViewModel(news: settings.arguments as NewsModel),
+          ),
           MainRouterConstants.newsComments,
         );
       default:

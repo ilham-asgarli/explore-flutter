@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import '../../../utils/config/router/core/main_router_service.dart';
 import '../../../utils/constants/enums/app_enum.dart';
 import '../../../utils/constants/router/main_router_constants.dart';
@@ -13,6 +14,7 @@ class News1Item extends StatelessWidget {
   final double? height;
   final double? fontSize;
   final bool newsSourceClickable;
+  final NewsModel news;
 
   const News1Item({
     super.key,
@@ -20,6 +22,7 @@ class News1Item extends StatelessWidget {
     required this.height,
     this.fontSize,
     this.newsSourceClickable = true,
+    required this.news,
   });
 
   @override
@@ -31,6 +34,7 @@ class News1Item extends StatelessWidget {
       onTap: () {
         MainRouterService.instance.pushNamed(
           path: MainRouterConstants.news,
+          data: news,
         );
       },
       child: Container(
@@ -43,7 +47,7 @@ class News1Item extends StatelessWidget {
           ),
           image: DecorationImage(
             image: CachedNetworkImageProvider(
-              "https://media.worldnomads.com/Explore/middle-east/hagia-sophia-church-istanbul-turkey-gettyimages-skaman306.jpg",
+              news.thumbnail,
             ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
@@ -56,7 +60,7 @@ class News1Item extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "Türkiye'nin savunma sanayisinde yaptıkları ile adını duyuran Baykar, Bayraktar Dikey İniş Kalkışlı İnsansız Hava Aracı'nın 8 bin feet operasyonel irtifa uçuş testini başarıyla tamamladığını duyurdu.",
+              news.title,
               style: TextStyle(
                 fontFamily: 'Matter',
                 color: Colors.white,
@@ -88,7 +92,7 @@ class News1Item extends StatelessWidget {
         }
       },
       child: Text(
-        "Haber",
+        news.channel.name,
         style: GoogleFonts.poppins(
           textStyle: const TextStyle(
             color: Colors.white,
@@ -105,11 +109,13 @@ class News1Item extends StatelessWidget {
           statistic: Statistic.comment,
           color: Colors.white,
           iconSize: 40,
+          news: news,
         ),
         NewsStatistic(
           statistic: Statistic.like,
           color: Colors.white,
           iconSize: 40,
+          news: news,
         ),
       ],
     );

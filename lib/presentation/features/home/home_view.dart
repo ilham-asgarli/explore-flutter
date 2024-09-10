@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/gen/assets.gen.dart';
 import '../../components/appbar/my_sliver_app_bar.dart';
@@ -8,6 +9,8 @@ import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/num_extension.dart';
 import '../../utils/extensions/theme_extension.dart';
 import '../../utils/extensions/widget_extension.dart';
+import '../../viewmodels/app/explore/explore_bloc.dart';
+import '../../viewmodels/app/slider/slider_bloc.dart';
 import 'components/news_2.dart';
 import 'components/news_3.dart';
 
@@ -26,12 +29,14 @@ class HomeView extends StatelessWidget {
               News3(
                 height: context.dynamicHeight(0.3),
                 scrollDirection: Axis.horizontal,
+                news: context.watch<SliderBloc>().state.data ?? [],
               ),
               buildVerticalNewsHeader(context),
               News2(
                 padding: context.paddingNormal,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
+                news: context.watch<ExploreBloc>().state.data ?? [],
               ),
             ],
           ).toSliver,

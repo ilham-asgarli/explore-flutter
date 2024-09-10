@@ -22,6 +22,7 @@ LangModel _$LangModelFromJson(Map<String, dynamic> json) {
 mixin _$LangModel {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
   String get flag => throw _privateConstructorUsedError;
 
@@ -40,7 +41,7 @@ abstract class $LangModelCopyWith<$Res> {
   factory $LangModelCopyWith(LangModel value, $Res Function(LangModel) then) =
       _$LangModelCopyWithImpl<$Res, LangModel>;
   @useResult
-  $Res call({int id, String name, String code, String flag});
+  $Res call({int id, String name, String country, String code, String flag});
 }
 
 /// @nodoc
@@ -60,6 +61,7 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? country = null,
     Object? code = null,
     Object? flag = null,
   }) {
@@ -71,6 +73,10 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
               as String,
       code: null == code
           ? _value.code
@@ -92,7 +98,7 @@ abstract class _$$LangModelImplCopyWith<$Res>
       __$$LangModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String code, String flag});
+  $Res call({int id, String name, String country, String code, String flag});
 }
 
 /// @nodoc
@@ -110,6 +116,7 @@ class __$$LangModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? country = null,
     Object? code = null,
     Object? flag = null,
   }) {
@@ -121,6 +128,10 @@ class __$$LangModelImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
               as String,
       code: null == code
           ? _value.code
@@ -140,6 +151,7 @@ class _$LangModelImpl extends _LangModel {
   const _$LangModelImpl(
       {required this.id,
       required this.name,
+      required this.country,
       required this.code,
       required this.flag})
       : super._();
@@ -152,13 +164,15 @@ class _$LangModelImpl extends _LangModel {
   @override
   final String name;
   @override
+  final String country;
+  @override
   final String code;
   @override
   final String flag;
 
   @override
   String toString() {
-    return 'LangModel(id: $id, name: $name, code: $code, flag: $flag)';
+    return 'LangModel(id: $id, name: $name, country: $country, code: $code, flag: $flag)';
   }
 
   @override
@@ -168,13 +182,14 @@ class _$LangModelImpl extends _LangModel {
             other is _$LangModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.country, country) || other.country == country) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.flag, flag) || other.flag == flag));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, code, flag);
+  int get hashCode => Object.hash(runtimeType, id, name, country, code, flag);
 
   /// Create a copy of LangModel
   /// with the given fields replaced by the non-null parameter values.
@@ -196,6 +211,7 @@ abstract class _LangModel extends LangModel {
   const factory _LangModel(
       {required final int id,
       required final String name,
+      required final String country,
       required final String code,
       required final String flag}) = _$LangModelImpl;
   const _LangModel._() : super._();
@@ -207,6 +223,8 @@ abstract class _LangModel extends LangModel {
   int get id;
   @override
   String get name;
+  @override
+  String get country;
   @override
   String get code;
   @override

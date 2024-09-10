@@ -10,13 +10,20 @@ import '../../../utils/constants/app/app_constants.dart';
 import '../../../utils/constants/enums/app_theme_enum.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/l10n/gen/app_localizations.dart';
-import '../../main/state/main-tab/main_tab_cubit.dart';
-import '../state/bloc/network/network_bloc.dart';
-import '../state/cubit/theme/theme_cubit.dart';
-import '../view-models/my_app_view_model.dart';
+import '../../../viewmodels/app/categories/categories_bloc.dart';
+import '../../../viewmodels/app/explore/explore_bloc.dart';
+import '../../../viewmodels/app/feeds/feeds_bloc.dart';
+import '../../../viewmodels/app/langs/langs_bloc.dart';
+import '../../../viewmodels/app/most-liked-feed/most_liked_feed_bloc.dart';
+import '../../../viewmodels/app/most-liked-feeds/most_liked_feeds_bloc.dart';
+import '../../../viewmodels/app/network/network_bloc.dart';
+import '../../../viewmodels/app/slider/slider_bloc.dart';
+import '../../../viewmodels/app/theme/theme_cubit.dart';
+import '../../../viewmodels/ephemeral/main-tab/main_tab_cubit.dart';
+import '../../../viewmodels/ephemeral/my-app/my_app_view_cubit.dart';
 
 class MyAppView extends StatelessWidget {
-  final MyAppViewModel viewModel;
+  final MyAppViewCubit viewModel;
 
   const MyAppView({
     super.key,
@@ -34,8 +41,34 @@ class MyAppView extends StatelessWidget {
           lazy: false,
           create: (_) => getIt(),
         ),
-        BlocProvider(
-          create: (_) => MainTabCubit(),
+        BlocProvider<MainTabCubit>(
+          create: (_) => getIt(),
+        ),
+        BlocProvider<LangsBloc>(
+          create: (_) => getIt(),
+        ),
+        BlocProvider<FeedsBloc>(
+          create: (_) => getIt(),
+        ),
+        BlocProvider<CategoriesBloc>(
+          lazy: false,
+          create: (_) => getIt(),
+        ),
+        BlocProvider<SliderBloc>(
+          lazy: false,
+          create: (_) => getIt(),
+        ),
+        BlocProvider<ExploreBloc>(
+          lazy: false,
+          create: (_) => getIt(),
+        ),
+        BlocProvider<MostLikedFeedBloc>(
+          lazy: false,
+          create: (_) => getIt(),
+        ),
+        BlocProvider<MostLikedFeedsBloc>(
+          lazy: false,
+          create: (_) => getIt(),
         ),
       ],
       child: DevicePreview(
@@ -43,8 +76,6 @@ class MyAppView extends StatelessWidget {
         builder: (context) => KeyboardVisibilityProvider(
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            onGenerateRoute: ConfigRouter.instance.generateRoute,
-            initialRoute: viewModel.getInitialRoute(),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             locale: kDebugMode ? const Locale("tr", "TR") : null,
@@ -56,10 +87,11 @@ class MyAppView extends StatelessWidget {
                 .getTheme(ThemeMode.dark),
             themeMode: context.watch<ThemeCubit>().state.themeMode,
             scaffoldMessengerKey: AppConstants.scaffoldMessengerKey,
+            navigatorKey: AppConstants.navigatorKey,
+            onGenerateRoute: ConfigRouter.instance.generateRoute,
+            initialRoute: viewModel.getInitialRoute(),
             builder: (context, child) {
-              try {
-                getIt.registerLazySingleton(() => context);
-              } catch (e) {}
+              viewModel.injectContext(context);
               return MediaQuery(
                 data: context.mediaQuery.copyWith(
                   textScaler: TextScaler.linear(

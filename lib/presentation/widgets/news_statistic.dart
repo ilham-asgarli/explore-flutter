@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../data/models/news/news.model.dart';
 import '../../utils/gen/assets.gen.dart';
 import '../utils/config/router/core/main_router_service.dart';
 import '../utils/constants/enums/app_enum.dart';
@@ -17,6 +18,7 @@ class NewsStatistic extends StatelessWidget {
   final bool clickable;
   final Axis axis;
   final FontWeight? fontWeight;
+  final NewsModel news;
 
   const NewsStatistic({
     super.key,
@@ -28,6 +30,7 @@ class NewsStatistic extends StatelessWidget {
     this.clickable = true,
     this.axis = Axis.horizontal,
     this.fontWeight,
+    required this.news,
   });
 
   @override
@@ -39,6 +42,7 @@ class NewsStatistic extends StatelessWidget {
             case Statistic.comment:
               MainRouterService.instance.pushNamed(
                 path: MainRouterConstants.newsComments,
+                data: news,
               );
               break;
             case Statistic.like:

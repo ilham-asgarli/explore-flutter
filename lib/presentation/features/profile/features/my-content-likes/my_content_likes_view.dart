@@ -34,7 +34,8 @@ class MyContentLikesView extends StatelessWidget {
                   itemCount: 5,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return const News2Item();
+                    //return const News2Item();
+                    return SizedBox();
                   },
                 ),
               ],

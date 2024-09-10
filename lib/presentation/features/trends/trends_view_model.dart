@@ -8,6 +8,7 @@ class TrendsViewModel {
       flag:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/640px-Flag_of_Turkey.svg.png",
       code: 'TR',
+      country: 'Turkey',
     ),
     LangModel(
       name: "Azerbaycan",
@@ -15,6 +16,7 @@ class TrendsViewModel {
       flag:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Azerbaijan.svg/1200px-Flag_of_Azerbaijan.svg.png",
       code: 'AZ',
+      country: 'Azerbaijan',
     ),
   ];
 }

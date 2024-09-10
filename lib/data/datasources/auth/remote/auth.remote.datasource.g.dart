@@ -14,7 +14,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://example.com/auth/';
+    baseUrl ??= 'https://app.exploreday.org/api/auth/';
   }
 
   final Dio _dio;
@@ -24,11 +24,11 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BaseModel<TokenModel>> refreshToken(String refreshToken) async {
+  Future<BaseModel<TokenModel>> refreshToken() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = refreshToken;
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<BaseModel<TokenModel>>(Options(
       method: 'POST',
       headers: _headers,

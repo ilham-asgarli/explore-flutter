@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../../../../data/models/news/news.model.dart';
 import 'news_2_item.dart';
 
 class News2 extends StatelessWidget {
@@ -8,14 +9,16 @@ class News2 extends StatelessWidget {
   final bool shrinkWrap;
   final ScrollPhysics? physics;
   final EdgeInsetsGeometry? padding;
+  final List<NewsModel> news;
 
   const News2({
-    Key? key,
+    super.key,
     this.shrinkWrap = false,
     this.newsSourceClickable = true,
     this.physics,
     this.padding,
-  }) : super(key: key);
+    this.news = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,12 @@ class News2 extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
-      itemCount: 6,
+      itemCount: news.length,
       itemBuilder: (context, index) {
         return News2Item(
           key: UniqueKey(),
           newsSourceClickable: newsSourceClickable,
+          news: news[index],
         );
       },
     );

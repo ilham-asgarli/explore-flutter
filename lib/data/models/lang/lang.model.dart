@@ -10,6 +10,7 @@ class LangModel with _$LangModel {
   const factory LangModel({
     required int id,
     required String name,
+    required String country,
     required String code,
     required String flag,
   }) = _LangModel;

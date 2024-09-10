@@ -1,5 +1,5 @@
-import '../../../entities/user/user.entity.dart';
+import '../../../../data/models/user/user.model.dart';
 
 abstract class UserRemoteRepository {
-  Future<UserEntity> getUser({required int id});
+  Future<UserModel> getUser({required int id});
 }
