@@ -6,29 +6,19 @@ part 'source.model.g.dart';
 @freezed
 class SourceModel with _$SourceModel {
   const factory SourceModel({
-    required Map<String, List<RssFeed>> rssFeeds,
+    required int id,
+    @JsonKey(name: 'channel_id') required int channelId,
+    @JsonKey(name: 'category_id') required int categoryId,
+    @JsonKey(name: 'language_id') required int languageId,
+    required String url,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+    required Category category,
+    required Channel channel,
   }) = _SourceModel;
 
   factory SourceModel.fromJson(Map<String, dynamic> json) =>
       _$SourceModelFromJson(json);
-}
-
-@freezed
-class RssFeed with _$RssFeed {
-  const factory RssFeed({
-    required int id,
-    required int channelId,
-    required int categoryId,
-    required int languageId,
-    required String url,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-    required Category category,
-    required Channel channel,
-  }) = _RssFeed;
-
-  factory RssFeed.fromJson(Map<String, dynamic> json) =>
-      _$RssFeedFromJson(json);
 }
 
 @freezed
@@ -37,8 +27,8 @@ class Category with _$Category {
     required int id,
     required Name name,
     required String icon,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) =>
@@ -60,11 +50,11 @@ class Name with _$Name {
 class Channel with _$Channel {
   const factory Channel({
     required int id,
-    required int countryId,
+    @JsonKey(name: 'country_id') required int countryId,
     required String name,
     required String icon,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
   }) = _Channel;
 
   factory Channel.fromJson(Map<String, dynamic> json) =>

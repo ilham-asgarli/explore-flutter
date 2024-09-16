@@ -16,6 +16,8 @@ part 'langs_state.dart';
 class LangsBloc extends Bloc<LangsEvent, LangsState> {
   LangsBloc() : super(const LangsState()) {
     on<GetLangs>(onGetLangs);
+
+    add(const GetLangs());
   }
 
   onGetLangs(GetLangs event, Emitter<LangsState> emit) async {

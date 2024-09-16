@@ -9,6 +9,7 @@ class MyCheckboxListTile extends StatefulWidget {
   final ImageProvider<Object>? prefixIcon;
   final bool isPrefixColored;
   final bool value;
+  final bool showCheckbox;
   final Color? iconColor, fillColor;
   final double? paddingVertical, paddingHorizontal;
   final double? fontSize;
@@ -21,6 +22,7 @@ class MyCheckboxListTile extends StatefulWidget {
     this.title,
     this.subtitle,
     this.value = false,
+    this.showCheckbox = false,
     this.prefixIcon,
     this.isPrefixColored = false,
     this.fontSize,
@@ -102,7 +104,7 @@ class _MyCheckboxListTileState extends State<MyCheckboxListTile> {
                     ),
                   ),
                 ),
-                buildCheckbox(context),
+                if (widget.showCheckbox) buildCheckbox(context),
               ],
             ),
           ],

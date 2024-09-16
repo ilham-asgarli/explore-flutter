@@ -5,6 +5,7 @@ import '../../../../domain/repositories/feed/remote/feed.remote.repository.dart'
 import '../../../datasources/feed/remote/feed.remote.datasource.dart';
 import '../../../models/category/category.model.dart';
 import '../../../models/channel/channel.model.dart';
+import '../../../models/comment/comment.model.dart';
 import '../../../models/lang/lang.model.dart';
 import '../../../models/news/news.model.dart';
 import '../../../models/source/source.model.dart';
@@ -101,9 +102,9 @@ class FeedRemoteRepositoryImpl implements FeedRemoteRepository {
   }
 
   @override
-  Future<SourceModel> getSources({required int countryId}) async {
+  Future<List<SourceModel>> getSources({required int countryId}) async {
     try {
-      SourceModel model = await feedRemoteDataSource.getSources({
+      List<SourceModel> model = await feedRemoteDataSource.getSources({
         'country_id': countryId,
       });
       return model;
@@ -147,6 +148,97 @@ class FeedRemoteRepositoryImpl implements FeedRemoteRepository {
     try {
       List<NewsModel> model = await feedRemoteDataSource.getMostLikedFeeds({
         'country_id': countryId,
+      });
+      return model;
+    } on DioException catch (e) {
+      throw e.error!;
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> createComment(
+      {required int feedId,
+      required String name,
+      required String email,
+      required String comment}) async {
+    try {
+      await feedRemoteDataSource.createComment({
+        'feed_id': feedId,
+        'name': name,
+        'email': email,
+        'comment': comment,
+      });
+    } on DioException catch (e) {
+      throw e.error!;
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<List<CommentModel>> getComments({required int feedId}) async {
+    try {
+      List<CommentModel> model = await feedRemoteDataSource.getComments({
+        'feed_id': feedId,
+      });
+      return model;
+    } on DioException catch (e) {
+      throw e.error!;
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> like({required int id}) async {
+    try {
+      await feedRemoteDataSource.like({
+        'id': id,
+      });
+    } on DioException catch (e) {
+      throw e.error!;
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> unlike({required int id}) async {
+    try {
+      await feedRemoteDataSource.unlike({
+        'id': id,
+      });
+    } on DioException catch (e) {
+      throw e.error!;
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> deleteComment({required int id}) async {
+    try {
+      await feedRemoteDataSource.deleteComment({
+        'id': id,
+      });
+    } on DioException catch (e) {
+      throw e.error!;
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<List<NewsModel>> search({
+    required int countryId,
+    required String keyword,
+  }) async {
+    try {
+      List<NewsModel> model = await feedRemoteDataSource.search({
+        'country_id': countryId,
+        'keyword': keyword,
       });
       return model;
     } on DioException catch (e) {

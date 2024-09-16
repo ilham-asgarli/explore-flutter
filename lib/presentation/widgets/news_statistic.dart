@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/models/news/news.model.dart';
+import '../../domain/usecases/feed/like.usecase.dart';
+import '../../domain/usecases/feed/unlike.usecase.dart';
+import '../../utils/di/injectable.dart';
 import '../../utils/gen/assets.gen.dart';
 import '../utils/config/router/core/main_router_service.dart';
 import '../utils/constants/enums/app_enum.dart';
 import '../utils/constants/router/main_router_constants.dart';
 import '../utils/extensions/context_extension.dart';
 import '../utils/extensions/theme_extension.dart';
+import '../viewmodels/app/like/like_bloc.dart';
 
 class NewsStatistic extends StatelessWidget {
   final int? count;
@@ -35,6 +40,11 @@ class NewsStatistic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var liked = context.watch<LikeBloc>().state.data.contains(news.id);
+    var likedIcon = (statistic == Statistic.like) && liked;
+    var iconColor =
+        likedIcon ? Colors.red : color ?? context.theme.customColors.third;
+
     return GestureDetector(
       onTap: () {
         if (clickable) {
@@ -46,6 +56,11 @@ class NewsStatistic extends StatelessWidget {
               );
               break;
             case Statistic.like:
+              getIt<LikeBloc>().add(
+                liked
+                    ? Unlike(params: UnlikeUseCaseParams(id: news.id))
+                    : Like(params: LikeUseCaseParams(id: news.id)),
+              );
               break;
           }
         }
@@ -54,7 +69,7 @@ class NewsStatistic extends StatelessWidget {
         children: [
           ImageIcon(
             size: iconSize,
-            color: color ?? context.theme.customColors.third,
+            color: iconColor,
             AssetImage(
               statistic == Statistic.comment
                   ? Assets.image.icComment.path
@@ -64,7 +79,7 @@ class NewsStatistic extends StatelessWidget {
           Visibility(
             visible: count != null,
             child: Text(
-              count.toString(),
+              likedIcon ? ((count ?? 0) + 1).toString() : count.toString(),
               style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                   fontSize: fontSize,

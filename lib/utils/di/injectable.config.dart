@@ -43,8 +43,10 @@ import '../../domain/repositories/user/local/user.local.repository.dart'
     as _i1036;
 import '../../domain/repositories/user/remote/user.remote.repository.dart'
     as _i910;
+import '../../domain/usecases/feed/create_comment.usecase.dart' as _i173;
 import '../../domain/usecases/feed/get_categories.usecase.dart' as _i1018;
 import '../../domain/usecases/feed/get_channels.usecase.dart' as _i747;
+import '../../domain/usecases/feed/get_comments.usecase.dart' as _i48;
 import '../../domain/usecases/feed/get_explore.usecase.dart' as _i403;
 import '../../domain/usecases/feed/get_feed.usecase.dart' as _i865;
 import '../../domain/usecases/feed/get_feeds.usecase.dart' as _i136;
@@ -53,6 +55,9 @@ import '../../domain/usecases/feed/get_most_liked_feed.usecase.dart' as _i361;
 import '../../domain/usecases/feed/get_most_liked_feeds.usecase.dart' as _i175;
 import '../../domain/usecases/feed/get_slider.usecase.dart' as _i547;
 import '../../domain/usecases/feed/get_sources.usecase.dart' as _i1063;
+import '../../domain/usecases/feed/like.usecase.dart' as _i196;
+import '../../domain/usecases/feed/search.usecase.dart' as _i309;
+import '../../domain/usecases/feed/unlike.usecase.dart' as _i219;
 import '../../domain/usecases/user/get_user.usecase.dart' as _i385;
 import '../../presentation/utils/config/theme/exapmle_theme.dart' as _i647;
 import '../../presentation/utils/config/theme/main_theme.dart' as _i62;
@@ -61,15 +66,22 @@ import '../../presentation/utils/helpers/theme/theme_helper.dart' as _i222;
 import '../../presentation/utils/l10n/gen/app_localizations.dart' as _i803;
 import '../../presentation/viewmodels/app/categories/categories_bloc.dart'
     as _i581;
+import '../../presentation/viewmodels/app/comments/comments_bloc.dart'
+    as _i1028;
 import '../../presentation/viewmodels/app/explore/explore_bloc.dart' as _i721;
 import '../../presentation/viewmodels/app/feeds/feeds_bloc.dart' as _i122;
 import '../../presentation/viewmodels/app/langs/langs_bloc.dart' as _i516;
+import '../../presentation/viewmodels/app/like/like_bloc.dart' as _i970;
+import '../../presentation/viewmodels/app/make-comment/make_comment_bloc.dart'
+    as _i863;
 import '../../presentation/viewmodels/app/most-liked-feed/most_liked_feed_bloc.dart'
     as _i72;
 import '../../presentation/viewmodels/app/most-liked-feeds/most_liked_feeds_bloc.dart'
     as _i95;
 import '../../presentation/viewmodels/app/network/network_bloc.dart' as _i705;
+import '../../presentation/viewmodels/app/search/search_bloc.dart' as _i236;
 import '../../presentation/viewmodels/app/slider/slider_bloc.dart' as _i890;
+import '../../presentation/viewmodels/app/sources/sources_bloc.dart' as _i408;
 import '../../presentation/viewmodels/app/theme/theme_cubit.dart' as _i384;
 import '../../presentation/viewmodels/ephemeral/choose-country/choose_country_view_model.dart'
     as _i276;
@@ -98,6 +110,34 @@ extension GetItInjectableX on _i174.GetIt {
     final pathProviderRegisterModule = _$PathProviderRegisterModule();
     gh.singleton<_i222.ThemeHelper>(() => _i222.ThemeHelper());
     gh.lazySingleton<_i842.ErrorInterceptor>(() => _i842.ErrorInterceptor());
+    gh.lazySingleton<_i581.CategoriesBloc>(() => _i581.CategoriesBloc());
+    gh.lazySingleton<_i1028.CommentsBloc>(() => _i1028.CommentsBloc());
+    gh.lazySingleton<_i721.ExploreBloc>(() => _i721.ExploreBloc());
+    gh.lazySingleton<_i122.FeedsBloc>(() => _i122.FeedsBloc());
+    gh.lazySingleton<_i516.LangsBloc>(() => _i516.LangsBloc());
+    gh.lazySingleton<_i970.LikeBloc>(() => _i970.LikeBloc());
+    gh.lazySingleton<_i863.MakeCommentBloc>(() => _i863.MakeCommentBloc());
+    gh.lazySingleton<_i72.MostLikedFeedBloc>(() => _i72.MostLikedFeedBloc());
+    gh.lazySingleton<_i95.MostLikedFeedsBloc>(() => _i95.MostLikedFeedsBloc());
+    gh.lazySingleton<_i705.NetworkBloc>(
+      () => _i705.NetworkBloc(),
+      dispose: (i) => i.close(),
+    );
+    gh.lazySingleton<_i236.SearchBloc>(
+      () => _i236.SearchBloc(),
+      dispose: (i) => i.close(),
+    );
+    gh.lazySingleton<_i890.SliderBloc>(() => _i890.SliderBloc());
+    gh.lazySingleton<_i408.SourcesBloc>(() => _i408.SourcesBloc());
+    gh.lazySingleton<_i384.ThemeCubit>(
+      () => _i384.ThemeCubit(),
+      dispose: (i) => i.close(),
+    );
+    gh.lazySingleton<_i276.ChooseCountryViewModel>(
+        () => _i276.ChooseCountryViewModel());
+    gh.lazySingleton<_i328.MainViewCubit>(() => _i328.MainViewCubit());
+    gh.lazySingleton<_i778.MainTabCubit>(() => _i778.MainTabCubit());
+    gh.lazySingleton<_i363.MyAppViewCubit>(() => _i363.MyAppViewCubit());
     gh.lazySingleton<_i32.Env>(() => registerModule.env);
     gh.lazySingleton<_i803.AppLocalizations>(() => registerModule.l10n);
     gh.lazySingleton<_i974.Logger>(() => registerModule.logger);
@@ -111,26 +151,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.db,
       preResolve: true,
     );
-    gh.lazySingleton<_i122.FeedsBloc>(() => _i122.FeedsBloc());
-    gh.lazySingleton<_i705.NetworkBloc>(
-      () => _i705.NetworkBloc(),
-      dispose: (i) => i.close(),
-    );
-    gh.lazySingleton<_i384.ThemeCubit>(
-      () => _i384.ThemeCubit(),
-      dispose: (i) => i.close(),
-    );
-    gh.lazySingleton<_i328.MainViewCubit>(() => _i328.MainViewCubit());
-    gh.lazySingleton<_i778.MainTabCubit>(() => _i778.MainTabCubit());
-    gh.lazySingleton<_i363.MyAppViewCubit>(() => _i363.MyAppViewCubit());
-    gh.lazySingleton<_i516.LangsBloc>(() => _i516.LangsBloc());
-    gh.lazySingleton<_i276.ChooseCountryViewModel>(
-        () => _i276.ChooseCountryViewModel());
-    gh.lazySingleton<_i581.CategoriesBloc>(() => _i581.CategoriesBloc());
-    gh.lazySingleton<_i890.SliderBloc>(() => _i890.SliderBloc());
-    gh.lazySingleton<_i721.ExploreBloc>(() => _i721.ExploreBloc());
-    gh.lazySingleton<_i72.MostLikedFeedBloc>(() => _i72.MostLikedFeedBloc());
-    gh.lazySingleton<_i95.MostLikedFeedsBloc>(() => _i95.MostLikedFeedsBloc());
     gh.lazySingleton<_i652.UserLocalDataSource>(
         () => _i652.UserLocalDataSource(db: gh<_i779.Database>()));
     gh.lazySingletonAsync<_i497.Directory>(
@@ -182,10 +202,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i910.UserRemoteRepository>(() =>
         _i499.UserRemoteRepositoryImpl(
             userRemoteDataSource: gh<_i132.UserRemoteDataSource>()));
+    gh.lazySingleton<_i173.CreateCommentUseCase>(() =>
+        _i173.CreateCommentUseCase(
+            feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i1018.GetCategoriesUseCase>(() =>
         _i1018.GetCategoriesUseCase(
             feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i747.GetChannelsUseCase>(() => _i747.GetChannelsUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i48.GetCommentsUseCase>(() => _i48.GetCommentsUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i403.GetExploreUseCase>(() => _i403.GetExploreUseCase(
         feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i865.GetFeedUseCase>(() => _i865.GetFeedUseCase(
         feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
@@ -193,18 +220,22 @@ extension GetItInjectableX on _i174.GetIt {
         feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i1047.GetLangsUseCase>(() => _i1047.GetLangsUseCase(
         feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
-    gh.lazySingleton<_i547.GetSliderUseCase>(() => _i547.GetSliderUseCase(
-        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
-    gh.lazySingleton<_i1063.GetSourcesUseCase>(() => _i1063.GetSourcesUseCase(
-        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
-    gh.lazySingleton<_i403.GetExploreUseCase>(() => _i403.GetExploreUseCase(
-        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i361.GetMostLikedFeedUseCase>(() =>
         _i361.GetMostLikedFeedUseCase(
             feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i175.GetMostLikedFeedsUseCase>(() =>
         _i175.GetMostLikedFeedsUseCase(
             feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i547.GetSliderUseCase>(() => _i547.GetSliderUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i1063.GetSourcesUseCase>(() => _i1063.GetSourcesUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i196.LikeUseCase>(() => _i196.LikeUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i309.SearchUseCase>(() => _i309.SearchUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
+    gh.lazySingleton<_i219.UnlikeUseCase>(() => _i219.UnlikeUseCase(
+        feedRemoteRepository: gh<_i468.FeedRemoteRepository>()));
     gh.lazySingleton<_i385.GetUserUseCase>(() => _i385.GetUserUseCase(
           userRemoteRepository: gh<_i910.UserRemoteRepository>(),
           userLocalRepository: gh<_i1036.UserLocalRepository>(),

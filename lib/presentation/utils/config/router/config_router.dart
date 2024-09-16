@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../presentation/features/not-found-navigation/views/not_found_navigation_view.dart';
 import '../../../../utils/di/injectable.dart';
@@ -9,6 +10,12 @@ import '../../../features/sign/forgot_password_view.dart';
 import '../../../features/sign/reset_password_view.dart';
 import '../../../features/sign/sign_in_view.dart';
 import '../../../features/sign/sign_up_view.dart';
+import '../../../viewmodels/app/categories/categories_bloc.dart';
+import '../../../viewmodels/app/explore/explore_bloc.dart';
+import '../../../viewmodels/app/most-liked-feeds/most_liked_feeds_bloc.dart';
+import '../../../viewmodels/app/network/network_bloc.dart';
+import '../../../viewmodels/app/slider/slider_bloc.dart';
+import '../../../viewmodels/app/sources/sources_bloc.dart';
 import '../../constants/router/profile_router_constants.dart';
 import '../../constants/router/router_constants.dart';
 import 'interfaces/router_interface.dart';
@@ -23,7 +30,35 @@ class ConfigRouter extends RouterInterface {
     switch (settings.name) {
       case RouterConstants.main:
         return normalNavigate(
-          const MainRouterView(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<CategoriesBloc>(
+                lazy: false,
+                create: (_) => getIt(),
+              ),
+              BlocProvider<SliderBloc>(
+                lazy: false,
+                create: (_) => getIt(),
+              ),
+              BlocProvider<ExploreBloc>(
+                lazy: false,
+                create: (_) => getIt(),
+              ),
+              BlocProvider<MostLikedFeedsBloc>(
+                lazy: false,
+                create: (_) => getIt(),
+              ),
+              BlocProvider<SourcesBloc>(
+                lazy: false,
+                create: (_) => getIt(),
+              ),
+              BlocProvider<NetworkBloc>(
+                lazy: false,
+                create: (_) => getIt(),
+              ),
+            ],
+            child: const MainRouterView(),
+          ),
           RouterConstants.main,
         );
       case RouterConstants.chooseCountry:

@@ -31,6 +31,7 @@
   "mod": "Mod",
   "help": "Yardım",
   "comment": "Yorum",
+  "name": "İsim",
   "content": "İçerik",
   "commentLikes": "Yorum Beğenileri",
   "myComments": "Yorumlarım",

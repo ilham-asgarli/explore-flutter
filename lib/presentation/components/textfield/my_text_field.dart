@@ -7,6 +7,7 @@ import '../../widgets/my_popup_menu_button.dart';
 class MyTextField extends StatelessWidget {
   final String hintText;
   final String? prefixIcon, suffixIcon;
+  final Widget? suffix;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final bool obscureText;
@@ -15,6 +16,8 @@ class MyTextField extends StatelessWidget {
   final Map<String, String>? popupMenuItems;
   final Function(String value)? onPopupMenuItemSelected;
   final Function(String? value)? onFieldSubmitted;
+  final void Function(String)? onChanged;
+  final void Function(PointerDownEvent)? onTapOutside;
 
   const MyTextField({
     super.key,
@@ -30,11 +33,19 @@ class MyTextField extends StatelessWidget {
     this.fillColor,
     this.fontSize,
     this.onFieldSubmitted,
+    this.onChanged,
+    this.onTapOutside,
+    this.suffix,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapOutside: onTapOutside ??
+          (event) {
+            FocusScope.of(context).unfocus();
+          },
+      onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
       textInputAction: textInputAction,
       keyboardType: keyboardType,
@@ -59,14 +70,15 @@ class MyTextField extends StatelessWidget {
                 ),
               )
             : null,
-        suffixIcon: suffixIcon != null
-            ? MyPopupMenuButton(
-                iconColor: iconColor,
-                onSelected: onPopupMenuItemSelected,
-                icon: suffixIcon!,
-                popupMenuItems: popupMenuItems,
-              )
-            : null,
+        suffixIcon: suffix ??
+            (suffixIcon != null
+                ? MyPopupMenuButton(
+                    iconColor: iconColor,
+                    onSelected: onPopupMenuItemSelected,
+                    icon: suffixIcon!,
+                    popupMenuItems: popupMenuItems,
+                  )
+                : null),
         prefixIconConstraints: const BoxConstraints(),
         suffixIconConstraints: const BoxConstraints(),
         hintText: hintText,

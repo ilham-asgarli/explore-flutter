@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utils/gen/assets.gen.dart';
+import '../../../utils/constants/enums/app_enum.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/theme_extension.dart';
+import '../../../viewmodels/app/make-comment/make_comment_bloc.dart';
+import '../../../viewmodels/ephemeral/news-comments/news_comments_view_model.dart';
 import '../../../widgets/my_profile_picture_image.dart';
 
 class WriteComment extends StatelessWidget {
-  const WriteComment({Key? key}) : super(key: key);
+  final NewsCommentsViewModel viewModel;
+
+  const WriteComment({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +41,49 @@ class WriteComment extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "İsim",
-                    style: TextStyle(
+                  TextFormField(
+                    controller: viewModel.nameController,
+                    style: const TextStyle(
                       fontFamily: "Matter",
                       fontSize: 16,
                     ),
+                    maxLines: null,
+                    maxLength: 50,
+                    buildCounter: (context,
+                        {required currentLength,
+                        required isFocused,
+                        required maxLength}) {
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                      hintText: context.l10n.name,
+                    ),
                   ),
                   TextFormField(
+                    controller: viewModel.emailController,
+                    style: const TextStyle(
+                      fontFamily: "Matter",
+                    ),
+                    maxLines: null,
+                    maxLength: 50,
+                    buildCounter: (context,
+                        {required currentLength,
+                        required isFocused,
+                        required maxLength}) {
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                      hintText: context.l10n.email,
+                    ),
+                  ),
+                  TextFormField(
+                    controller: viewModel.commentController,
                     maxLines: null,
                     decoration: InputDecoration(
                       isDense: true,
@@ -54,13 +97,23 @@ class WriteComment extends StatelessWidget {
             ),
           ),
           Center(
-            child: GestureDetector(
-              onTap: () {},
-              child: Image.asset(
-                Assets.image.icSendSquare.path,
-                width: 35,
-              ),
-            ),
+            child: context.watch<MakeCommentBloc>().state.state !=
+                    BlocState.loading
+                ? IconButton(
+                    onPressed: () {
+                      viewModel.writeComment();
+                    },
+                    icon: Image.asset(
+                      Assets.image.icSendSquare.path,
+                      width: 35,
+                    ),
+                  )
+                : Container(
+                    margin: const EdgeInsets.only(right: 10, top: 10),
+                    width: 30,
+                    height: 30,
+                    child: const CircularProgressIndicator(),
+                  ),
           ),
         ],
       ),

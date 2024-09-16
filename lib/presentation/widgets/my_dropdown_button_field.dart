@@ -45,12 +45,15 @@ class _MyDropdownButtonFormFieldState<T>
   @override
   void initState() {
     prefixIcon = widget.prefixIcon;
-    setPrefixIcon(widget.value);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.items.isNotEmpty) {
+      setPrefixIcon(widget.value);
+    }
+
     return DropdownButtonFormField<T>(
       borderRadius: BorderRadius.circular(12),
       decoration: InputDecoration(

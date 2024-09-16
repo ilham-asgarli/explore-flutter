@@ -151,6 +151,10 @@ class $AssetsImageGen {
   AssetGenImage get icPortrait =>
       const AssetGenImage('assets/image/ic_portrait.png');
 
+  /// File path: assets/image/ic_profile.png
+  AssetGenImage get icProfile =>
+      const AssetGenImage('assets/image/ic_profile.png');
+
   /// File path: assets/image/ic_profile_comment.png
   AssetGenImage get icProfileComment =>
       const AssetGenImage('assets/image/ic_profile_comment.png');
@@ -222,6 +226,7 @@ class $AssetsImageGen {
         icPhone,
         icPlaystore,
         icPortrait,
+        icProfile,
         icProfileComment,
         icProfileHeart,
         icProfileWhite,

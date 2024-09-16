@@ -20,7 +20,20 @@ SourceModel _$SourceModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SourceModel {
-  Map<String, List<RssFeed>> get rssFeeds => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'channel_id')
+  int get channelId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category_id')
+  int get categoryId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'language_id')
+  int get languageId => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt => throw _privateConstructorUsedError;
+  Category get category => throw _privateConstructorUsedError;
+  Channel get channel => throw _privateConstructorUsedError;
 
   /// Serializes this SourceModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +51,19 @@ abstract class $SourceModelCopyWith<$Res> {
           SourceModel value, $Res Function(SourceModel) then) =
       _$SourceModelCopyWithImpl<$Res, SourceModel>;
   @useResult
-  $Res call({Map<String, List<RssFeed>> rssFeeds});
+  $Res call(
+      {int id,
+      @JsonKey(name: 'channel_id') int channelId,
+      @JsonKey(name: 'category_id') int categoryId,
+      @JsonKey(name: 'language_id') int languageId,
+      String url,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      Category category,
+      Channel channel});
+
+  $CategoryCopyWith<$Res> get category;
+  $ChannelCopyWith<$Res> get channel;
 }
 
 /// @nodoc
@@ -56,14 +81,74 @@ class _$SourceModelCopyWithImpl<$Res, $Val extends SourceModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rssFeeds = null,
+    Object? id = null,
+    Object? channelId = null,
+    Object? categoryId = null,
+    Object? languageId = null,
+    Object? url = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? category = null,
+    Object? channel = null,
   }) {
     return _then(_value.copyWith(
-      rssFeeds: null == rssFeeds
-          ? _value.rssFeeds
-          : rssFeeds // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<RssFeed>>,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      channelId: null == channelId
+          ? _value.channelId
+          : channelId // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      languageId: null == languageId
+          ? _value.languageId
+          : languageId // ignore: cast_nullable_to_non_nullable
+              as int,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as Category,
+      channel: null == channel
+          ? _value.channel
+          : channel // ignore: cast_nullable_to_non_nullable
+              as Channel,
     ) as $Val);
+  }
+
+  /// Create a copy of SourceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryCopyWith<$Res> get category {
+    return $CategoryCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
+  }
+
+  /// Create a copy of SourceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ChannelCopyWith<$Res> get channel {
+    return $ChannelCopyWith<$Res>(_value.channel, (value) {
+      return _then(_value.copyWith(channel: value) as $Val);
+    });
   }
 }
 
@@ -75,7 +160,21 @@ abstract class _$$SourceModelImplCopyWith<$Res>
       __$$SourceModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, List<RssFeed>> rssFeeds});
+  $Res call(
+      {int id,
+      @JsonKey(name: 'channel_id') int channelId,
+      @JsonKey(name: 'category_id') int categoryId,
+      @JsonKey(name: 'language_id') int languageId,
+      String url,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt,
+      Category category,
+      Channel channel});
+
+  @override
+  $CategoryCopyWith<$Res> get category;
+  @override
+  $ChannelCopyWith<$Res> get channel;
 }
 
 /// @nodoc
@@ -91,13 +190,53 @@ class __$$SourceModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rssFeeds = null,
+    Object? id = null,
+    Object? channelId = null,
+    Object? categoryId = null,
+    Object? languageId = null,
+    Object? url = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? category = null,
+    Object? channel = null,
   }) {
     return _then(_$SourceModelImpl(
-      rssFeeds: null == rssFeeds
-          ? _value._rssFeeds
-          : rssFeeds // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<RssFeed>>,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      channelId: null == channelId
+          ? _value.channelId
+          : channelId // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      languageId: null == languageId
+          ? _value.languageId
+          : languageId // ignore: cast_nullable_to_non_nullable
+              as int,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as Category,
+      channel: null == channel
+          ? _value.channel
+          : channel // ignore: cast_nullable_to_non_nullable
+              as Channel,
     ));
   }
 }
@@ -105,322 +244,39 @@ class __$$SourceModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SourceModelImpl implements _SourceModel {
-  const _$SourceModelImpl({required final Map<String, List<RssFeed>> rssFeeds})
-      : _rssFeeds = rssFeeds;
+  const _$SourceModelImpl(
+      {required this.id,
+      @JsonKey(name: 'channel_id') required this.channelId,
+      @JsonKey(name: 'category_id') required this.categoryId,
+      @JsonKey(name: 'language_id') required this.languageId,
+      required this.url,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt,
+      required this.category,
+      required this.channel});
 
   factory _$SourceModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SourceModelImplFromJson(json);
 
-  final Map<String, List<RssFeed>> _rssFeeds;
-  @override
-  Map<String, List<RssFeed>> get rssFeeds {
-    if (_rssFeeds is EqualUnmodifiableMapView) return _rssFeeds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_rssFeeds);
-  }
-
-  @override
-  String toString() {
-    return 'SourceModel(rssFeeds: $rssFeeds)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SourceModelImpl &&
-            const DeepCollectionEquality().equals(other._rssFeeds, _rssFeeds));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_rssFeeds));
-
-  /// Create a copy of SourceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SourceModelImplCopyWith<_$SourceModelImpl> get copyWith =>
-      __$$SourceModelImplCopyWithImpl<_$SourceModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SourceModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _SourceModel implements SourceModel {
-  const factory _SourceModel(
-      {required final Map<String, List<RssFeed>> rssFeeds}) = _$SourceModelImpl;
-
-  factory _SourceModel.fromJson(Map<String, dynamic> json) =
-      _$SourceModelImpl.fromJson;
-
-  @override
-  Map<String, List<RssFeed>> get rssFeeds;
-
-  /// Create a copy of SourceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SourceModelImplCopyWith<_$SourceModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-RssFeed _$RssFeedFromJson(Map<String, dynamic> json) {
-  return _RssFeed.fromJson(json);
-}
-
-/// @nodoc
-mixin _$RssFeed {
-  int get id => throw _privateConstructorUsedError;
-  int get channelId => throw _privateConstructorUsedError;
-  int get categoryId => throw _privateConstructorUsedError;
-  int get languageId => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  Category get category => throw _privateConstructorUsedError;
-  Channel get channel => throw _privateConstructorUsedError;
-
-  /// Serializes this RssFeed to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of RssFeed
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $RssFeedCopyWith<RssFeed> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $RssFeedCopyWith<$Res> {
-  factory $RssFeedCopyWith(RssFeed value, $Res Function(RssFeed) then) =
-      _$RssFeedCopyWithImpl<$Res, RssFeed>;
-  @useResult
-  $Res call(
-      {int id,
-      int channelId,
-      int categoryId,
-      int languageId,
-      String url,
-      DateTime createdAt,
-      DateTime updatedAt,
-      Category category,
-      Channel channel});
-
-  $CategoryCopyWith<$Res> get category;
-  $ChannelCopyWith<$Res> get channel;
-}
-
-/// @nodoc
-class _$RssFeedCopyWithImpl<$Res, $Val extends RssFeed>
-    implements $RssFeedCopyWith<$Res> {
-  _$RssFeedCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of RssFeed
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? channelId = null,
-    Object? categoryId = null,
-    Object? languageId = null,
-    Object? url = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? category = null,
-    Object? channel = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      channelId: null == channelId
-          ? _value.channelId
-          : channelId // ignore: cast_nullable_to_non_nullable
-              as int,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
-      languageId: null == languageId
-          ? _value.languageId
-          : languageId // ignore: cast_nullable_to_non_nullable
-              as int,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-      channel: null == channel
-          ? _value.channel
-          : channel // ignore: cast_nullable_to_non_nullable
-              as Channel,
-    ) as $Val);
-  }
-
-  /// Create a copy of RssFeed
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CategoryCopyWith<$Res> get category {
-    return $CategoryCopyWith<$Res>(_value.category, (value) {
-      return _then(_value.copyWith(category: value) as $Val);
-    });
-  }
-
-  /// Create a copy of RssFeed
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ChannelCopyWith<$Res> get channel {
-    return $ChannelCopyWith<$Res>(_value.channel, (value) {
-      return _then(_value.copyWith(channel: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$RssFeedImplCopyWith<$Res> implements $RssFeedCopyWith<$Res> {
-  factory _$$RssFeedImplCopyWith(
-          _$RssFeedImpl value, $Res Function(_$RssFeedImpl) then) =
-      __$$RssFeedImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int id,
-      int channelId,
-      int categoryId,
-      int languageId,
-      String url,
-      DateTime createdAt,
-      DateTime updatedAt,
-      Category category,
-      Channel channel});
-
-  @override
-  $CategoryCopyWith<$Res> get category;
-  @override
-  $ChannelCopyWith<$Res> get channel;
-}
-
-/// @nodoc
-class __$$RssFeedImplCopyWithImpl<$Res>
-    extends _$RssFeedCopyWithImpl<$Res, _$RssFeedImpl>
-    implements _$$RssFeedImplCopyWith<$Res> {
-  __$$RssFeedImplCopyWithImpl(
-      _$RssFeedImpl _value, $Res Function(_$RssFeedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of RssFeed
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? channelId = null,
-    Object? categoryId = null,
-    Object? languageId = null,
-    Object? url = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? category = null,
-    Object? channel = null,
-  }) {
-    return _then(_$RssFeedImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      channelId: null == channelId
-          ? _value.channelId
-          : channelId // ignore: cast_nullable_to_non_nullable
-              as int,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
-      languageId: null == languageId
-          ? _value.languageId
-          : languageId // ignore: cast_nullable_to_non_nullable
-              as int,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-      channel: null == channel
-          ? _value.channel
-          : channel // ignore: cast_nullable_to_non_nullable
-              as Channel,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$RssFeedImpl implements _RssFeed {
-  const _$RssFeedImpl(
-      {required this.id,
-      required this.channelId,
-      required this.categoryId,
-      required this.languageId,
-      required this.url,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.category,
-      required this.channel});
-
-  factory _$RssFeedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RssFeedImplFromJson(json);
-
   @override
   final int id;
   @override
+  @JsonKey(name: 'channel_id')
   final int channelId;
   @override
+  @JsonKey(name: 'category_id')
   final int categoryId;
   @override
+  @JsonKey(name: 'language_id')
   final int languageId;
   @override
   final String url;
   @override
-  final DateTime createdAt;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
   @override
-  final DateTime updatedAt;
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
   @override
   final Category category;
   @override
@@ -428,14 +284,14 @@ class _$RssFeedImpl implements _RssFeed {
 
   @override
   String toString() {
-    return 'RssFeed(id: $id, channelId: $channelId, categoryId: $categoryId, languageId: $languageId, url: $url, createdAt: $createdAt, updatedAt: $updatedAt, category: $category, channel: $channel)';
+    return 'SourceModel(id: $id, channelId: $channelId, categoryId: $categoryId, languageId: $languageId, url: $url, createdAt: $createdAt, updatedAt: $updatedAt, category: $category, channel: $channel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RssFeedImpl &&
+            other is _$SourceModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.channelId, channelId) ||
                 other.channelId == channelId) &&
@@ -458,60 +314,66 @@ class _$RssFeedImpl implements _RssFeed {
   int get hashCode => Object.hash(runtimeType, id, channelId, categoryId,
       languageId, url, createdAt, updatedAt, category, channel);
 
-  /// Create a copy of RssFeed
+  /// Create a copy of SourceModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$RssFeedImplCopyWith<_$RssFeedImpl> get copyWith =>
-      __$$RssFeedImplCopyWithImpl<_$RssFeedImpl>(this, _$identity);
+  _$$SourceModelImplCopyWith<_$SourceModelImpl> get copyWith =>
+      __$$SourceModelImplCopyWithImpl<_$SourceModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RssFeedImplToJson(
+    return _$$SourceModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _RssFeed implements RssFeed {
-  const factory _RssFeed(
+abstract class _SourceModel implements SourceModel {
+  const factory _SourceModel(
       {required final int id,
-      required final int channelId,
-      required final int categoryId,
-      required final int languageId,
+      @JsonKey(name: 'channel_id') required final int channelId,
+      @JsonKey(name: 'category_id') required final int categoryId,
+      @JsonKey(name: 'language_id') required final int languageId,
       required final String url,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
+      @JsonKey(name: 'created_at') required final String createdAt,
+      @JsonKey(name: 'updated_at') required final String updatedAt,
       required final Category category,
-      required final Channel channel}) = _$RssFeedImpl;
+      required final Channel channel}) = _$SourceModelImpl;
 
-  factory _RssFeed.fromJson(Map<String, dynamic> json) = _$RssFeedImpl.fromJson;
+  factory _SourceModel.fromJson(Map<String, dynamic> json) =
+      _$SourceModelImpl.fromJson;
 
   @override
   int get id;
   @override
+  @JsonKey(name: 'channel_id')
   int get channelId;
   @override
+  @JsonKey(name: 'category_id')
   int get categoryId;
   @override
+  @JsonKey(name: 'language_id')
   int get languageId;
   @override
   String get url;
   @override
-  DateTime get createdAt;
+  @JsonKey(name: 'created_at')
+  String get createdAt;
   @override
-  DateTime get updatedAt;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt;
   @override
   Category get category;
   @override
   Channel get channel;
 
-  /// Create a copy of RssFeed
+  /// Create a copy of SourceModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RssFeedImplCopyWith<_$RssFeedImpl> get copyWith =>
+  _$$SourceModelImplCopyWith<_$SourceModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -524,8 +386,10 @@ mixin _$Category {
   int get id => throw _privateConstructorUsedError;
   Name get name => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this Category to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -543,7 +407,11 @@ abstract class $CategoryCopyWith<$Res> {
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
   $Res call(
-      {int id, Name name, String icon, DateTime createdAt, DateTime updatedAt});
+      {int id,
+      Name name,
+      String icon,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt});
 
   $NameCopyWith<$Res> get name;
 }
@@ -585,11 +453,11 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 
@@ -613,7 +481,11 @@ abstract class _$$CategoryImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id, Name name, String icon, DateTime createdAt, DateTime updatedAt});
+      {int id,
+      Name name,
+      String icon,
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt});
 
   @override
   $NameCopyWith<$Res> get name;
@@ -654,11 +526,11 @@ class __$$CategoryImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -670,8 +542,8 @@ class _$CategoryImpl implements _Category {
       {required this.id,
       required this.name,
       required this.icon,
-      required this.createdAt,
-      required this.updatedAt});
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt});
 
   factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryImplFromJson(json);
@@ -683,9 +555,11 @@ class _$CategoryImpl implements _Category {
   @override
   final String icon;
   @override
-  final DateTime createdAt;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
   @override
-  final DateTime updatedAt;
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
 
   @override
   String toString() {
@@ -729,11 +603,12 @@ class _$CategoryImpl implements _Category {
 
 abstract class _Category implements Category {
   const factory _Category(
-      {required final int id,
-      required final Name name,
-      required final String icon,
-      required final DateTime createdAt,
-      required final DateTime updatedAt}) = _$CategoryImpl;
+          {required final int id,
+          required final Name name,
+          required final String icon,
+          @JsonKey(name: 'created_at') required final String createdAt,
+          @JsonKey(name: 'updated_at') required final String updatedAt}) =
+      _$CategoryImpl;
 
   factory _Category.fromJson(Map<String, dynamic> json) =
       _$CategoryImpl.fromJson;
@@ -745,9 +620,11 @@ abstract class _Category implements Category {
   @override
   String get icon;
   @override
-  DateTime get createdAt;
+  @JsonKey(name: 'created_at')
+  String get createdAt;
   @override
-  DateTime get updatedAt;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt;
 
   /// Create a copy of Category
   /// with the given fields replaced by the non-null parameter values.
@@ -943,11 +820,14 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Channel {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country_id')
   int get countryId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this Channel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -965,11 +845,11 @@ abstract class $ChannelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      int countryId,
+      @JsonKey(name: 'country_id') int countryId,
       String name,
       String icon,
-      DateTime createdAt,
-      DateTime updatedAt});
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt});
 }
 
 /// @nodoc
@@ -1014,11 +894,11 @@ class _$ChannelCopyWithImpl<$Res, $Val extends Channel>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 }
@@ -1032,11 +912,11 @@ abstract class _$$ChannelImplCopyWith<$Res> implements $ChannelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      int countryId,
+      @JsonKey(name: 'country_id') int countryId,
       String name,
       String icon,
-      DateTime createdAt,
-      DateTime updatedAt});
+      @JsonKey(name: 'created_at') String createdAt,
+      @JsonKey(name: 'updated_at') String updatedAt});
 }
 
 /// @nodoc
@@ -1079,11 +959,11 @@ class __$$ChannelImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -1093,11 +973,11 @@ class __$$ChannelImplCopyWithImpl<$Res>
 class _$ChannelImpl implements _Channel {
   const _$ChannelImpl(
       {required this.id,
-      required this.countryId,
+      @JsonKey(name: 'country_id') required this.countryId,
       required this.name,
       required this.icon,
-      required this.createdAt,
-      required this.updatedAt});
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt});
 
   factory _$ChannelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChannelImplFromJson(json);
@@ -1105,15 +985,18 @@ class _$ChannelImpl implements _Channel {
   @override
   final int id;
   @override
+  @JsonKey(name: 'country_id')
   final int countryId;
   @override
   final String name;
   @override
   final String icon;
   @override
-  final DateTime createdAt;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
   @override
-  final DateTime updatedAt;
+  @JsonKey(name: 'updated_at')
+  final String updatedAt;
 
   @override
   String toString() {
@@ -1159,27 +1042,31 @@ class _$ChannelImpl implements _Channel {
 
 abstract class _Channel implements Channel {
   const factory _Channel(
-      {required final int id,
-      required final int countryId,
-      required final String name,
-      required final String icon,
-      required final DateTime createdAt,
-      required final DateTime updatedAt}) = _$ChannelImpl;
+          {required final int id,
+          @JsonKey(name: 'country_id') required final int countryId,
+          required final String name,
+          required final String icon,
+          @JsonKey(name: 'created_at') required final String createdAt,
+          @JsonKey(name: 'updated_at') required final String updatedAt}) =
+      _$ChannelImpl;
 
   factory _Channel.fromJson(Map<String, dynamic> json) = _$ChannelImpl.fromJson;
 
   @override
   int get id;
   @override
+  @JsonKey(name: 'country_id')
   int get countryId;
   @override
   String get name;
   @override
   String get icon;
   @override
-  DateTime get createdAt;
+  @JsonKey(name: 'created_at')
+  String get createdAt;
   @override
-  DateTime get updatedAt;
+  @JsonKey(name: 'updated_at')
+  String get updatedAt;
 
   /// Create a copy of Channel
   /// with the given fields replaced by the non-null parameter values.

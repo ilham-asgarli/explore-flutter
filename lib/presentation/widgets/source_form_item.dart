@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../data/models/source/source.model.dart';
 import '../../utils/gen/assets.gen.dart';
 import '../utils/config/router/core/main_router_service.dart';
 import '../utils/constants/router/main_router_constants.dart';
@@ -10,9 +11,16 @@ import '../utils/extensions/theme_extension.dart';
 import 'my_checkbox_list_tile.dart';
 
 class SourceFormItem extends StatelessWidget {
+  final List<SourceModel> sources;
   final bool showAll;
+  final bool showCheckbox;
 
-  const SourceFormItem({super.key, this.showAll = false});
+  const SourceFormItem({
+    super.key,
+    this.showAll = false,
+    this.showCheckbox = false,
+    this.sources = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +67,13 @@ class SourceFormItem extends StatelessWidget {
           ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 5,
+          itemCount: sources.length,
           itemBuilder: (context, index) {
             return MyCheckboxListTile(
               value: true,
-              title: "Kaynak",
+              title:
+                  "${sources[index].channel.name} (${sources[index].category.name.tr})",
+              showCheckbox: showCheckbox,
             );
           },
           separatorBuilder: (BuildContext context, int index) {

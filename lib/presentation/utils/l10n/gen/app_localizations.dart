@@ -285,6 +285,12 @@ abstract class AppLocalizations {
   /// **'Yorum'**
   String get comment;
 
+  /// No description provided for @name.
+  ///
+  /// In tr, this message translates to:
+  /// **'İsim'**
+  String get name;
+
   /// No description provided for @content.
   ///
   /// In tr, this message translates to:

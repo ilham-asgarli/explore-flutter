@@ -10,19 +10,19 @@ part of 'env.dev.dart';
 // ignore_for_file: type=lint
 final class _DevEnv {
   static const List<int> _enviedkeyKEY = <int>[
-    2890536798,
-    232197087,
-    3008495067,
-    536311374,
-    114887105,
+    2776871959,
+    1066574094,
+    263887018,
+    3453422925,
+    1995406356,
   ];
 
   static const List<int> _envieddataKEY = <int>[
-    2890536712,
-    232197022,
-    3008494999,
-    536311323,
-    114887044,
+    2776872001,
+    1066574159,
+    263887078,
+    3453422872,
+    1995406417,
   ];
 
   static final String KEY = String.fromCharCodes(List<int>.generate(

@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../models/category/category.model.dart';
 import '../../../models/channel/channel.model.dart';
+import '../../../models/comment/comment.model.dart';
 import '../../../models/lang/lang.model.dart';
 import '../../../models/news/news.model.dart';
 import '../../../models/source/source.model.dart';
@@ -27,7 +28,7 @@ abstract class FeedRemoteDataSource {
   Future<NewsModel> getFeed(@Body() Map<String, dynamic> body);
 
   @POST(ApiUrlConstants.sources)
-  Future<SourceModel> getSources(@Body() Map<String, dynamic> body);
+  Future<List<SourceModel>> getSources(@Body() Map<String, dynamic> body);
 
   @POST(ApiUrlConstants.slider)
   Future<List<NewsModel>> getSlider(@Body() Map<String, dynamic> body);
@@ -46,4 +47,22 @@ abstract class FeedRemoteDataSource {
 
   @POST(ApiUrlConstants.mostLikedFeeds)
   Future<List<NewsModel>> getMostLikedFeeds(@Body() Map<String, dynamic> body);
+
+  @POST(ApiUrlConstants.like)
+  Future<void> like(@Body() Map<String, dynamic> body);
+
+  @POST(ApiUrlConstants.unlike)
+  Future<void> unlike(@Body() Map<String, dynamic> body);
+
+  @POST(ApiUrlConstants.createComment)
+  Future<void> createComment(@Body() Map<String, dynamic> body);
+
+  @POST(ApiUrlConstants.deleteComment)
+  Future<void> deleteComment(@Body() Map<String, dynamic> body);
+
+  @POST(ApiUrlConstants.comments)
+  Future<List<CommentModel>> getComments(@Body() Map<String, dynamic> body);
+
+  @POST(ApiUrlConstants.search)
+  Future<List<NewsModel>> search(@Body() Map<String, dynamic> body);
 }

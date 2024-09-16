@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../data/models/comment/comment.model.dart';
 import '../../../../data/models/news/news.model.dart';
-import '../../../../utils/gen/assets.gen.dart';
 import '../../../utils/constants/app/app_constants.dart';
-import '../../../utils/constants/enums/app_enum.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/num_extension.dart';
 import '../../../utils/extensions/theme_extension.dart';
 import '../../../widgets/my_popup_menu_button_item.dart';
 import '../../../widgets/my_profile_picture_image.dart';
-import '../../../widgets/news_statistic.dart';
 
 class Comment extends StatelessWidget {
   final NewsModel news;
+  final CommentModel comment;
 
   const Comment({
     super.key,
     required this.news,
+    required this.comment,
   });
 
   @override
@@ -46,15 +47,16 @@ class Comment extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "İsim",
-                        style: TextStyle(
+                        comment.name,
+                        style: const TextStyle(
                           fontFamily: "Matter",
                           fontSize: 16,
                         ),
                       ),
                       Text(
-                        "10:00",
-                        style: TextStyle(
+                        DateFormat.Hm()
+                            .format(DateTime.parse(comment.createdAt)),
+                        style: const TextStyle(
                           fontSize: 10,
                           color: Color(0xFF858997),
                         ),
@@ -63,8 +65,8 @@ class Comment extends StatelessWidget {
                   ),
                   3.verticalSpace,
                   Text(
-                    "YorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorumYorum",
-                    style: TextStyle(
+                    comment.comment,
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Color(0xFF858997),
                     ),
@@ -73,7 +75,7 @@ class Comment extends StatelessWidget {
               ),
             ),
           ),
-          Column(
+          /*Column(
             children: [
               GestureDetector(
                 onTapDown: (TapDownDetails details) {
@@ -94,7 +96,7 @@ class Comment extends StatelessWidget {
                 news: news,
               ),
             ],
-          ),
+          ),*/
         ],
       ),
     );

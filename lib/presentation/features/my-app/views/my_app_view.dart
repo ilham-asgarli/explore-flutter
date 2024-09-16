@@ -10,14 +10,12 @@ import '../../../utils/constants/app/app_constants.dart';
 import '../../../utils/constants/enums/app_theme_enum.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/l10n/gen/app_localizations.dart';
-import '../../../viewmodels/app/categories/categories_bloc.dart';
-import '../../../viewmodels/app/explore/explore_bloc.dart';
+import '../../../viewmodels/app/comments/comments_bloc.dart';
 import '../../../viewmodels/app/feeds/feeds_bloc.dart';
 import '../../../viewmodels/app/langs/langs_bloc.dart';
-import '../../../viewmodels/app/most-liked-feed/most_liked_feed_bloc.dart';
-import '../../../viewmodels/app/most-liked-feeds/most_liked_feeds_bloc.dart';
-import '../../../viewmodels/app/network/network_bloc.dart';
-import '../../../viewmodels/app/slider/slider_bloc.dart';
+import '../../../viewmodels/app/like/like_bloc.dart';
+import '../../../viewmodels/app/make-comment/make_comment_bloc.dart';
+import '../../../viewmodels/app/search/search_bloc.dart';
 import '../../../viewmodels/app/theme/theme_cubit.dart';
 import '../../../viewmodels/ephemeral/main-tab/main_tab_cubit.dart';
 import '../../../viewmodels/ephemeral/my-app/my_app_view_cubit.dart';
@@ -37,36 +35,29 @@ class MyAppView extends StatelessWidget {
         BlocProvider<ThemeCubit>(
           create: (_) => getIt(),
         ),
-        BlocProvider<NetworkBloc>(
-          lazy: false,
-          create: (_) => getIt(),
-        ),
         BlocProvider<MainTabCubit>(
-          create: (_) => getIt(),
-        ),
-        BlocProvider<LangsBloc>(
           create: (_) => getIt(),
         ),
         BlocProvider<FeedsBloc>(
           create: (_) => getIt(),
         ),
-        BlocProvider<CategoriesBloc>(
-          lazy: false,
+        BlocProvider<SearchBloc>(
           create: (_) => getIt(),
         ),
-        BlocProvider<SliderBloc>(
-          lazy: false,
+        BlocProvider<CommentsBloc>(
           create: (_) => getIt(),
         ),
-        BlocProvider<ExploreBloc>(
-          lazy: false,
+        BlocProvider<LikeBloc>(
           create: (_) => getIt(),
         ),
-        BlocProvider<MostLikedFeedBloc>(
-          lazy: false,
+        BlocProvider<MakeCommentBloc>(
           create: (_) => getIt(),
         ),
-        BlocProvider<MostLikedFeedsBloc>(
+        /*BlocProvider<MostLikedFeedBloc>(
+          lazy: false,
+          create: (_) => getIt(),
+        ),*/
+        BlocProvider<LangsBloc>(
           lazy: false,
           create: (_) => getIt(),
         ),

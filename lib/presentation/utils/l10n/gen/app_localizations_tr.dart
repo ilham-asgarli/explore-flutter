@@ -103,6 +103,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get comment => 'Yorum';
 
   @override
+  String get name => 'İsim';
+
+  @override
   String get content => 'İçerik';
 
   @override

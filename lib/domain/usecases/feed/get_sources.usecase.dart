@@ -8,7 +8,8 @@ import '../../repositories/feed/remote/feed.remote.repository.dart';
 import '../../utils/base/usecase.dart';
 
 @LazySingleton()
-class GetSourcesUseCase extends UseCase<SourceModel, GetSourcesUseCaseParams> {
+class GetSourcesUseCase
+    extends UseCase<List<SourceModel>, GetSourcesUseCaseParams> {
   final FeedRemoteRepository feedRemoteRepository;
 
   const GetSourcesUseCase({
@@ -16,7 +17,7 @@ class GetSourcesUseCase extends UseCase<SourceModel, GetSourcesUseCaseParams> {
   });
 
   @override
-  Future<Either<DataException, SourceModel>> call(
+  Future<Either<DataException, List<SourceModel>>> call(
     GetSourcesUseCaseParams params,
   ) async {
     try {

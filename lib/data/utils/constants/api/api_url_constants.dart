@@ -13,4 +13,10 @@ abstract class ApiUrlConstants {
   static const String explore = "feeds/explore";
   static const String mostLikedFeed = "most-liked-feed";
   static const String mostLikedFeeds = "most-liked-feeds";
+  static const String like = "feeds/like";
+  static const String unlike = "feeds/unlike";
+  static const String createComment = "feeds/comment/create";
+  static const String deleteComment = "feeds/comment/delete";
+  static const String comments = "feeds/comments";
+  static const String search = "feeds/search";
 }

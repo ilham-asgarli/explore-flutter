@@ -13,45 +13,60 @@ import '../../../widgets/news_statistic.dart';
 
 class News extends StatelessWidget {
   final bool newsSourceClickable;
+  final bool newsClickable;
   final NewsModel news;
 
   const News({
     super.key,
     this.newsSourceClickable = true,
     required this.news,
+    this.newsClickable = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: context.dynamicWidth(0.3),
-      decoration: BoxDecoration(
-        color: context.theme.customColors.fourth,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
+    return InkWell(
+      onTap: newsClickable
+          ? () {
+              MainRouterService.instance.pushNamed(
+                path: MainRouterConstants.news,
+                data: news,
+              );
+            }
+          : null,
+      borderRadius: const BorderRadius.all(
+        Radius.circular(10),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: context.paddingLow,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: buildNewsDescription(context),
+      child: Ink(
+        height: context.dynamicWidth(0.3),
+        decoration: BoxDecoration(
+          color: context.theme.customColors.fourth,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: context.paddingLow,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: buildNewsDescription(context),
+                      ),
                     ),
-                  ),
-                  buildFooter(context),
-                ],
+                    buildFooter(context),
+                  ],
+                ),
               ),
             ),
-          ),
-          buildNewsImage(context),
-        ],
+            buildNewsImage(context),
+          ],
+        ),
       ),
     );
   }
@@ -106,7 +121,7 @@ class News extends StatelessWidget {
         NewsStatistic(
           statistic: Statistic.comment,
           count: news.comment,
-          clickable: false,
+          clickable: newsClickable,
           news: news,
         ),
         10.horizontalSpace,
