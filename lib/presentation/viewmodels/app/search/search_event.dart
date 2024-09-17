@@ -28,3 +28,19 @@ class Finish extends SearchEvent {
 class Clear extends SearchEvent {
   const Clear();
 }
+
+class AddToHistory extends SearchEvent {
+  final String keyword;
+
+  const AddToHistory({
+    required this.keyword,
+  });
+}
+
+class RemoveFromHistory extends SearchEvent {
+  final String keyword;
+
+  const RemoveFromHistory({
+    required this.keyword,
+  });
+}

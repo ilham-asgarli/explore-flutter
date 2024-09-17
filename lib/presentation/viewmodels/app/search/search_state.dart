@@ -6,6 +6,7 @@ class SearchState with _$SearchState {
 
   const factory SearchState({
     List<NewsModel>? data,
+    @Default([]) List<String> history,
     String? error,
     @Default(BlocState.initial) BlocState state,
   }) = _SearchState;

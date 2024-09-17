@@ -87,7 +87,7 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
-          GestureDetector(
+          /*GestureDetector(
             onTap: () {},
             child: Row(
               children: [
@@ -106,7 +106,7 @@ class HomeView extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          ),*/
         ],
       ),
     );

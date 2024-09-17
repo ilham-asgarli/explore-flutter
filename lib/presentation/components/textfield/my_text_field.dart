@@ -5,6 +5,7 @@ import '../../utils/extensions/theme_extension.dart';
 import '../../widgets/my_popup_menu_button.dart';
 
 class MyTextField extends StatelessWidget {
+  final TextEditingController? controller;
   final String hintText;
   final String? prefixIcon, suffixIcon;
   final Widget? suffix;
@@ -36,11 +37,13 @@ class MyTextField extends StatelessWidget {
     this.onChanged,
     this.onTapOutside,
     this.suffix,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onTapOutside: onTapOutside ??
           (event) {
             FocusScope.of(context).unfocus();

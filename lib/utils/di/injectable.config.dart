@@ -91,6 +91,8 @@ import '../../presentation/viewmodels/ephemeral/main/main_view_cubit.dart'
     as _i328;
 import '../../presentation/viewmodels/ephemeral/my-app/my_app_view_cubit.dart'
     as _i363;
+import '../../presentation/viewmodels/ephemeral/search/search_view_model.dart'
+    as _i915;
 import '../constants/env/env.dart' as _i32;
 import 'path_provider_register_module.dart' as _i433;
 import 'register_module.dart' as _i291;
@@ -138,6 +140,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i328.MainViewCubit>(() => _i328.MainViewCubit());
     gh.lazySingleton<_i778.MainTabCubit>(() => _i778.MainTabCubit());
     gh.lazySingleton<_i363.MyAppViewCubit>(() => _i363.MyAppViewCubit());
+    gh.lazySingleton<_i915.SearchViewModel>(() => _i915.SearchViewModel());
     gh.lazySingleton<_i32.Env>(() => registerModule.env);
     gh.lazySingleton<_i803.AppLocalizations>(() => registerModule.l10n);
     gh.lazySingleton<_i974.Logger>(() => registerModule.logger);

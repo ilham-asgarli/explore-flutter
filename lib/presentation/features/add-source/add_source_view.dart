@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/gen/assets.gen.dart';
 import '../../components/appbar/my_sliver_app_bar.dart';
@@ -8,6 +9,7 @@ import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/num_extension.dart';
 import '../../utils/extensions/theme_extension.dart';
 import '../../utils/extensions/widget_extension.dart';
+import '../../viewmodels/app/sources/sources_bloc.dart';
 import '../../widgets/source_form_item.dart';
 
 class AddSourceView extends StatelessWidget {
@@ -26,8 +28,8 @@ class AddSourceView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildSearch(context),
-                20.verticalSpace,
+                //buildSearch(context),
+                //20.verticalSpace,
                 buildSources(context),
               ],
             ),
@@ -49,12 +51,13 @@ class AddSourceView extends StatelessWidget {
   Widget buildSources(BuildContext context) {
     return ListView.separated(
       padding: EdgeInsets.zero,
-      itemCount: 5,
+      itemCount: 1,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return const SourceFormItem(
-          showAll: true,
+        return SourceFormItem(
+          //showAll: true,
+          sources: context.watch<SourcesBloc>().state.data ?? [],
         );
       },
       separatorBuilder: (context, index) {

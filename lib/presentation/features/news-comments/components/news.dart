@@ -15,12 +15,14 @@ class News extends StatelessWidget {
   final bool newsSourceClickable;
   final bool newsClickable;
   final NewsModel news;
+  final void Function()? addToHistory;
 
   const News({
     super.key,
     this.newsSourceClickable = true,
     required this.news,
     this.newsClickable = false,
+    this.addToHistory,
   });
 
   @override
@@ -28,6 +30,9 @@ class News extends StatelessWidget {
     return InkWell(
       onTap: newsClickable
           ? () {
+              if (addToHistory != null) {
+                addToHistory!();
+              }
               MainRouterService.instance.pushNamed(
                 path: MainRouterConstants.news,
                 data: news,
@@ -37,7 +42,7 @@ class News extends StatelessWidget {
       borderRadius: const BorderRadius.all(
         Radius.circular(10),
       ),
-      child: Ink(
+      child: Container(
         height: context.dynamicWidth(0.3),
         decoration: BoxDecoration(
           color: context.theme.customColors.fourth,

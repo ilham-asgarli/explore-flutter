@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -19,7 +19,7 @@ EventTransformer<Event> debounce<Event>(Duration duration) {
 }
 
 @lazySingleton
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
+class SearchBloc extends HydratedBloc<SearchEvent, SearchState> {
   SearchBloc() : super(const SearchState()) {
     on<Search>(
       onSearch,
@@ -27,6 +27,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
     on<Finish>(onFinishSearch);
     on<Clear>(onClearSearch);
+    on<AddToHistory>(onAddToHistory);
+    on<RemoveFromHistory>(onRemoveFromHistory);
   }
 
   void onSearch(Search event, Emitter<SearchState> emit) async {
@@ -75,12 +77,52 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Clear event,
     Emitter<SearchState> emit,
   ) {
-    emit(const SearchState());
+    emit(SearchState(history: state.history));
+  }
+
+  void onAddToHistory(
+    AddToHistory event,
+    Emitter<SearchState> emit,
+  ) {
+    var history = List<String>.from(state.history);
+    history.removeWhere((element) => element == event.keyword);
+    history.insert(0, event.keyword);
+
+    emit(state.copyWith(
+      history: history,
+    ));
+  }
+
+  void onRemoveFromHistory(
+    RemoveFromHistory event,
+    Emitter<SearchState> emit,
+  ) {
+    var history = List<String>.from(state.history);
+    history.remove(event.keyword);
+
+    emit(state.copyWith(
+      history: history,
+    ));
   }
 
   @disposeMethod
   @override
   Future<void> close() {
     return super.close();
+  }
+
+  @override
+  SearchState? fromJson(Map<String, dynamic> json) {
+    return SearchState(
+        history: List<String>.from(
+      json['history'],
+    ));
+  }
+
+  @override
+  Map<String, dynamic>? toJson(SearchState state) {
+    return {
+      'history': state.history,
+    };
   }
 }

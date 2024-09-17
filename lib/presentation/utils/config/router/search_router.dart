@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../presentation/features/not-found-navigation/views/not_found_navigation_view.dart';
+import '../../../../utils/di/injectable.dart';
 import '../../../features/search/search_view.dart';
 import '../../constants/router/router_constants.dart';
 import '../../constants/router/search_router_constants.dart';
@@ -16,7 +17,9 @@ class SearchRouter extends RouterInterface {
     switch (settings.name) {
       case SearchRouterConstants.search:
         return normalNavigate(
-          SearchView(),
+          SearchView(
+            viewModel: getIt(),
+          ),
           SearchRouterConstants.search,
         );
       default:

@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/di/injectable.dart';
 import '../../../utils/gen/assets.gen.dart';
 import '../../components/appbar/my_sliver_app_bar.dart';
 import '../../components/textfield/my_text_field.dart';
-import '../../utils/constants/cache/shared_preferences_constants.dart';
 import '../../utils/constants/enums/app_enum.dart';
 import '../../utils/extensions/context_extension.dart';
 import '../../utils/extensions/num_extension.dart';
 import '../../utils/extensions/theme_extension.dart';
 import '../../utils/extensions/widget_extension.dart';
 import '../../viewmodels/app/search/search_bloc.dart';
+import '../../viewmodels/ephemeral/search/search_view_model.dart';
 import '../news-comments/components/news.dart';
 
 class SearchView extends StatelessWidget {
-  SearchView({super.key});
+  final SearchViewModel viewModel;
 
-  final searches = [
-    "Haber",
-    "Siyaset",
-    "Galatasaray",
-    "Amerika",
-    "Torrent kimdir",
-    "Dene",
-  ];
+  const SearchView({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +34,7 @@ class SearchView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyTextField(
+                  controller: viewModel.searchController,
                   prefixIcon: Assets.image.icSearch.path,
                   suffix: (context.watch<SearchBloc>().state.state ==
                           BlocState.loading)
@@ -52,23 +48,19 @@ class SearchView extends StatelessWidget {
                   //suffixIcon: Assets.image.icSettings3.path,
                   hintText: context.l10n.sourceAndNewsSearchHint,
                   iconColor: context.theme.customColors.third,
-                  onChanged: (p0) {
-                    int? countryId = getIt<SharedPreferences>()
-                        .getInt(SharedPreferencesConstants.chosenCountryId);
-                    getIt<SearchBloc>()
-                        .add(Search(keyword: p0, countryId: countryId!));
-                  },
                 ),
-                /*Padding(
-                  padding: context.paddingNormalVertical,
-                  child: Text(
-                    context.l10n.searchHistory,
-                    style: const TextStyle(
-                      fontSize: 13,
+                if (context.watch<SearchBloc>().state.history.isNotEmpty) ...[
+                  Padding(
+                    padding: context.paddingNormalVertical,
+                    child: Text(
+                      context.l10n.searchHistory,
+                      style: const TextStyle(
+                        fontSize: 13,
+                      ),
                     ),
                   ),
-                ),
-                buildHistory(context),*/
+                  buildHistory(context),
+                ],
                 if (context.watch<SearchBloc>().state.data != null)
                   ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
@@ -78,6 +70,10 @@ class SearchView extends StatelessWidget {
                       return News(
                         news: context.watch<SearchBloc>().state.data![index],
                         newsClickable: true,
+                        addToHistory: () {
+                          getIt<SearchBloc>().add(AddToHistory(
+                              keyword: viewModel.searchController.text));
+                        },
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -96,14 +92,31 @@ class SearchView extends StatelessWidget {
     return Wrap(
       spacing: 15,
       children: [
-        for (String search in searches)
+        for (String search in context.watch<SearchBloc>().state.history)
           Chip(
             padding: context.paddingNormalHorizontal,
-            label: Text(
-              search,
-              style: TextStyle(
-                fontSize: 14,
-                color: context.theme.customColors.third,
+            onDeleted: () {
+              getIt<SearchBloc>().add(RemoveFromHistory(keyword: search));
+            },
+            deleteIcon: const Icon(
+              Icons.close,
+              size: 15,
+              color: Colors.red,
+            ),
+            label: InkWell(
+              onTap: () {
+                viewModel.searchController.text = search;
+                /*int? countryId = getIt<SharedPreferences>()
+                    .getInt(SharedPreferencesConstants.chosenCountryId);
+                getIt<SearchBloc>()
+                    .add(Search(keyword: search, countryId: countryId!));*/
+              },
+              child: Text(
+                search,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: context.theme.customColors.third,
+                ),
               ),
             ),
             backgroundColor: context.theme.customColors.fourth,
